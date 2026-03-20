@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgOg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="50%" style="stop-color:#1e293b"/>
+      <stop offset="100%" style="stop-color:#0f172a"/>
+    </linearGradient>
+    <linearGradient id="shieldOg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="boltOg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/>
+      <stop offset="100%" style="stop-color:#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgOg)"/>
+  <!-- Grid pattern -->
+  <g opacity="0.05" stroke="#6366f1" stroke-width="1">
+    <line x1="0" y1="0" x2="0" y2="630"/><line x1="60" y1="0" x2="60" y2="630"/>
+    <line x1="120" y1="0" x2="120" y2="630"/><line x1="180" y1="0" x2="180" y2="630"/>
+    <line x1="240" y1="0" x2="240" y2="630"/><line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="360" y1="0" x2="360" y2="630"/><line x1="420" y1="0" x2="420" y2="630"/>
+    <line x1="480" y1="0" x2="480" y2="630"/><line x1="540" y1="0" x2="540" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/><line x1="660" y1="0" x2="660" y2="630"/>
+    <line x1="720" y1="0" x2="720" y2="630"/><line x1="780" y1="0" x2="780" y2="630"/>
+    <line x1="840" y1="0" x2="840" y2="630"/><line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="960" y1="0" x2="960" y2="630"/><line x1="1020" y1="0" x2="1020" y2="630"/>
+    <line x1="1080" y1="0" x2="1080" y2="630"/><line x1="1140" y1="0" x2="1140" y2="630"/>
+    <line x1="0" y1="60" x2="1200" y2="60"/><line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/><line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/><line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/><line x1="0" y1="480" x2="1200" y2="480"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+  </g>
+  <!-- Accent line top -->
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accent)"/>
+  <!-- Shield icon -->
+  <g transform="translate(100, 140)">
+    <path d="M80 0 L160 40 L160 100 C160 140 125 170 80 185 C35 170 0 140 0 100 L0 40 Z" fill="url(#shieldOg)" opacity="0.9"/>
+    <path d="M80 15 L148 50 L148 96 C148 132 118 158 80 170 C42 158 12 132 12 96 L12 50 Z" fill="url(#bgOg)" opacity="0.8"/>
+    <path d="M92 45 L65 100 L82 100 L72 135 L100 85 L83 85 Z" fill="url(#boltOg)"/>
+    <circle cx="80" cy="115" r="6" fill="#94a3b8"/>
+    <rect x="77" y="115" width="6" height="10" rx="3" fill="#94a3b8"/>
+  </g>
+  <!-- Title -->
+  <text x="320" y="220" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="800" fill="#f8fafc">CyberCEN</text>
+  <!-- Subtitle -->
+  <text x="320" y="275" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#94a3b8">Autoevaluacion de Ciberseguridad</text>
+  <!-- Divider -->
+  <rect x="320" y="300" width="80" height="3" rx="1.5" fill="url(#accent)"/>
+  <!-- Description -->
+  <text x="320" y="345" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#64748b">Estandar del Coordinador Electrico Nacional</text>
+  <text x="320" y="375" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#64748b">Sector Electrico de Chile | NERC CIP</text>
+  <!-- Feature badges -->
+  <g transform="translate(100, 440)">
+    <rect x="0" y="0" width="220" height="50" rx="25" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="110" y="32" font-family="system-ui, sans-serif" font-size="16" fill="#6366f1" text-anchor="middle" font-weight="600">12 Dominios CIP</text>
+    <rect x="240" y="0" width="260" height="50" rx="25" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="370" y="32" font-family="system-ui, sans-serif" font-size="16" fill="#22c55e" text-anchor="middle" font-weight="600">Analisis de Riesgo</text>
+    <rect x="520" y="0" width="240" height="50" rx="25" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="640" y="32" font-family="system-ui, sans-serif" font-size="16" fill="#f59e0b" text-anchor="middle" font-weight="600">Plan de Accion</text>
+    <rect x="780" y="0" width="240" height="50" rx="25" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="900" y="32" font-family="system-ui, sans-serif" font-size="16" fill="#ef4444" text-anchor="middle" font-weight="600">Reporte PDF</text>
+  </g>
+  <!-- TTPSEC branding -->
+  <text x="100" y="570" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#475569" font-weight="600">TTPSEC</text>
+  <text x="190" y="570" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#334155">| Ciberseguridad para el Sector Energetico</text>
+  <!-- URL -->
+  <text x="1100" y="570" font-family="system-ui, sans-serif" font-size="14" fill="#475569" text-anchor="end">ttpsecspa.github.io/cybercen</text>
+  <!-- Accent line bottom -->
+  <rect x="0" y="626" width="1200" height="4" fill="url(#accent)"/>
+</svg>
