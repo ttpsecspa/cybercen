@@ -328,8 +328,8 @@ export default function ResultadosPage() {
                   fontSize: "13px",
                   padding: "8px 14px",
                 }}
-                formatter={(value: number) => [`${value}%`, "Puntaje"]}
-                labelFormatter={(label: string) => {
+                formatter={(value) => [`${value}%`, "Puntaje"]}
+                labelFormatter={(label) => {
                   const item = radarData.find((d) => d.domain === label);
                   return item ? `CIP-${label} - ${item.fullName}` : label;
                 }}
@@ -374,8 +374,8 @@ export default function ResultadosPage() {
                   fontSize: "13px",
                   padding: "8px 14px",
                 }}
-                formatter={(value: number) => [`${value}%`, "Puntaje"]}
-                labelFormatter={(label: string) => {
+                formatter={(value) => [`${value}%`, "Puntaje"]}
+                labelFormatter={(label) => {
                   const item = barData.find((d) => d.name === label);
                   return item ? `${label} - ${item.shortName}` : label;
                 }}

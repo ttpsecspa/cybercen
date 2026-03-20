@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(ls \"F:/DEV/Energy/node_modules/.bin/next\"*)",
+      "Bash(where npm.cmd)",
+      "Bash(npm run:*)"
+    ]
+  }
+}
