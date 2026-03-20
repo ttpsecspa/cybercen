@@ -110,13 +110,25 @@ export const useEvaluationStore = create<EvaluationStore>()(
       },
 
       importEvaluation: (json) => {
-        const data = JSON.parse(json);
-        set({
-          evaluation: data.evaluation ?? null,
-          domainResults: data.domainResults ?? [],
-          globalScore: data.globalScore ?? 0,
-          globalRiskLevel: data.globalRiskLevel ?? 'low',
-        });
+        try {
+          const data = JSON.parse(json);
+          if (!data || typeof data !== 'object') {
+            throw new Error('Formato de datos inválido');
+          }
+          if (data.evaluation && typeof data.evaluation.entityName !== 'string') {
+            throw new Error('Datos de evaluación inválidos');
+          }
+          set({
+            evaluation: data.evaluation ?? null,
+            domainResults: Array.isArray(data.domainResults) ? data.domainResults : [],
+            globalScore: typeof data.globalScore === 'number' ? data.globalScore : 0,
+            globalRiskLevel: ['critical', 'high', 'medium', 'low', 'optimal'].includes(data.globalRiskLevel)
+              ? data.globalRiskLevel
+              : 'low',
+          });
+        } catch {
+          throw new Error('No se pudo importar la evaluación: archivo inválido o corrupto');
+        }
       },
     }),
     {

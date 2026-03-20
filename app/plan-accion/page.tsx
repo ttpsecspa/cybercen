@@ -790,7 +790,7 @@ export default function PlanAccionPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `plan-accion-${evaluation?.entityName?.replace(/\s+/g, "-").toLowerCase() ?? "export"}-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `plan-accion-${(evaluation?.entityName ?? "export").replace(/[^a-z0-9]/gi, "-").replace(/-+/g, "-").toLowerCase()}-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }, [evaluation, filteredRecs, byPriority, domainResults, globalScore, globalRiskLevel]);

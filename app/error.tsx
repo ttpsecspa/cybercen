@@ -12,7 +12,9 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("CyberCEN Error:", error);
+    if (process.env.NODE_ENV === "development") {
+      console.error("CyberCEN Error:", error);
+    }
   }, [error]);
 
   return (
@@ -36,7 +38,7 @@ export default function Error({
         volver al panel de control.
       </p>
 
-      {error.digest && (
+      {error.digest && process.env.NODE_ENV === "development" && (
         <p className="mt-2 text-xs text-slate-400 font-mono">
           Código: {error.digest}
         </p>
