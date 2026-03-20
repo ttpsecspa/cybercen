@@ -88,7 +88,7 @@ export function GapAnalysis({ domainResults, standards }: GapAnalysisProps) {
       bg: "bg-slate-50 border-slate-200",
     },
     {
-      label: "Criticas",
+      label: "Críticas",
       value: summary.criticalGaps,
       icon: ShieldAlert,
       color: "text-red-600",
@@ -115,7 +115,7 @@ export function GapAnalysis({ domainResults, standards }: GapAnalysisProps) {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h3 className="text-lg font-bold text-slate-900">
-            Analisis de Brechas
+            Análisis de Brechas
           </h3>
           <p className="text-sm text-slate-500 mt-0.5">
             Cumplimiento general: {summary.percentCompliant}%
@@ -266,7 +266,7 @@ export function GapAnalysis({ domainResults, standards }: GapAnalysisProps) {
                                   ? "No cumple"
                                   : isParcial
                                     ? "Cumplimiento parcial"
-                                    : "Requiere atencion"}
+                                    : "Requiere atención"}
                               </span>
                             </div>
                           </li>
@@ -285,7 +285,7 @@ export function GapAnalysis({ domainResults, standards }: GapAnalysisProps) {
         <div className="py-12 text-center text-slate-400">
           <ShieldAlert className="w-12 h-12 mx-auto mb-3 opacity-40" />
           <p className="text-sm">
-            No hay datos de evaluacion disponibles para analizar.
+            No hay datos de evaluación disponibles para analizar.
           </p>
         </div>
       )}

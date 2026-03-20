@@ -34,11 +34,11 @@ export function getRiskColor(level: RiskLevel): string {
 // Get label in Spanish for risk level
 export function getRiskLabel(level: RiskLevel): string {
   const labels: Record<RiskLevel, string> = {
-    critical: 'Critico',
+    critical: 'Crítico',
     high: 'Alto',
     medium: 'Medio',
     low: 'Bajo',
-    optimal: 'Optimo',
+    optimal: 'Óptimo',
   };
   return labels[level];
 }
@@ -46,10 +46,10 @@ export function getRiskLabel(level: RiskLevel): string {
 // Get action description in Spanish
 export function getRiskAction(level: RiskLevel): string {
   const actions: Record<RiskLevel, string> = {
-    critical: 'Accion inmediata requerida',
+    critical: 'Acción inmediata requerida',
     high: 'Plan correctivo urgente',
     medium: 'Mejoras programadas necesarias',
-    low: 'Optimizacion continua',
+    low: 'Optimización continua',
     optimal: 'Mantener y monitorear',
   };
   return actions[level];

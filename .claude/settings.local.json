@@ -4,7 +4,17 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(ls \"F:/DEV/Energy/node_modules/.bin/next\"*)",
       "Bash(where npm.cmd)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(gh auth:*)",
+      "Bash(gh repo:*)",
+      "Bash(gh api:*)",
+      "Bash(gh run:*)",
+      "Bash(npx tsc:*)",
+      "Bash(python3 fix_accents.py)",
+      "Bash(python3 fix_accents2.py)",
+      "Bash(python3 fix_accents3.py)",
+      "Bash(python3 fix_accents4.py)",
+      "Bash(grep -c \"''transmission''\" lib/data/questions.ts)"
     ]
   }
 }

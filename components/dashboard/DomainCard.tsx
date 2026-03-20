@@ -6,11 +6,11 @@ import { cn } from "@/lib/utils/helpers";
 import { ProgressRing } from "./ProgressRing";
 
 const RISK_BADGE: Record<RiskLevel, { bg: string; text: string; label: string }> = {
-  critical: { bg: "bg-red-100 text-red-800", text: "text-red-600", label: "Critico" },
+  critical: { bg: "bg-red-100 text-red-800", text: "text-red-600", label: "Crítico" },
   high: { bg: "bg-orange-100 text-orange-800", text: "text-orange-600", label: "Alto" },
   medium: { bg: "bg-yellow-100 text-yellow-800", text: "text-yellow-600", label: "Medio" },
   low: { bg: "bg-blue-100 text-blue-800", text: "text-blue-600", label: "Bajo" },
-  optimal: { bg: "bg-green-100 text-green-800", text: "text-green-600", label: "Optimo" },
+  optimal: { bg: "bg-green-100 text-green-800", text: "text-green-600", label: "Óptimo" },
 };
 
 const RISK_PROGRESS_COLOR: Record<RiskLevel, string> = {

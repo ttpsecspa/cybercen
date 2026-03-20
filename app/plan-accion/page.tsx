@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import Link from "next/link";
 import {
   ShieldAlert,
@@ -8,18 +8,32 @@ import {
   ArrowLeft,
   FileText,
   ChevronDown,
-  ChevronRight,
+  ChevronUp,
   Clock,
   Zap,
-  CalendarClock,
-  CalendarRange,
+  Calendar,
   CheckCircle2,
   Circle,
   AlertTriangle,
   ListChecks,
   Rocket,
   Layers,
+  Download,
+  ArrowRight,
+  Sparkles,
+  TrendingUp,
+  Shield,
+  Activity,
 } from "lucide-react";
+import {
+  RadialBarChart,
+  RadialBar,
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 import { cn } from "@/lib/utils/helpers";
 import { useEvaluationStore } from "@/lib/store/evaluation-store";
 import { cipStandards } from "@/lib/data/cip-standards";
@@ -27,7 +41,8 @@ import { recommendations } from "@/lib/data/recommendations";
 import { getRiskColor, getRiskLabel } from "@/lib/engine/scoring";
 import type { DomainResult, RiskLevel, Recommendation } from "@/lib/data/types";
 
-// Risk level severity ordering (higher index = more severe)
+// ─── Constants ──────────────────────────────────────────────────────────────
+
 const riskSeverity: Record<RiskLevel, number> = {
   optimal: 0,
   low: 1,
@@ -36,46 +51,103 @@ const riskSeverity: Record<RiskLevel, number> = {
   critical: 4,
 };
 
-const priorityConfig = {
+type Priority = "immediate" | "short-term" | "medium-term" | "long-term";
+
+const priorityConfig: Record<
+  Priority,
+  {
+    label: string;
+    sublabel: string;
+    iconBg: string;
+    gradientFrom: string;
+    gradientTo: string;
+    borderColor: string;
+    textColor: string;
+    badgeBg: string;
+    badgeText: string;
+    dotColor: string;
+    headerBar: string;
+    lightBg: string;
+    ringColor: string;
+    chartColor: string;
+  }
+> = {
   immediate: {
     label: "Inmediato",
     sublabel: "0-3 meses",
-    color: "bg-red-500",
-    lightBg: "bg-red-50 border-red-200",
-    text: "text-red-700",
-    badge: "bg-red-100 text-red-700 border-red-200",
-    icon: Zap,
+    iconBg: "bg-red-500",
+    gradientFrom: "from-red-500",
+    gradientTo: "to-rose-600",
+    borderColor: "border-red-200",
+    textColor: "text-red-700",
+    badgeBg: "bg-red-100",
+    badgeText: "text-red-700",
+    dotColor: "bg-red-500",
+    headerBar: "bg-gradient-to-r from-red-500 to-rose-600",
+    lightBg: "bg-red-50",
+    ringColor: "ring-red-200",
+    chartColor: "#EF4444",
   },
   "short-term": {
-    label: "Corto plazo",
+    label: "Corto Plazo",
     sublabel: "3-6 meses",
-    color: "bg-orange-500",
-    lightBg: "bg-orange-50 border-orange-200",
-    text: "text-orange-700",
-    badge: "bg-orange-100 text-orange-700 border-orange-200",
-    icon: Clock,
+    iconBg: "bg-orange-500",
+    gradientFrom: "from-orange-500",
+    gradientTo: "to-amber-600",
+    borderColor: "border-orange-200",
+    textColor: "text-orange-700",
+    badgeBg: "bg-orange-100",
+    badgeText: "text-orange-700",
+    dotColor: "bg-orange-500",
+    headerBar: "bg-gradient-to-r from-orange-500 to-amber-600",
+    lightBg: "bg-orange-50",
+    ringColor: "ring-orange-200",
+    chartColor: "#F97316",
   },
   "medium-term": {
-    label: "Mediano plazo",
+    label: "Mediano Plazo",
     sublabel: "6-12 meses",
-    color: "bg-amber-500",
-    lightBg: "bg-amber-50 border-amber-200",
-    text: "text-amber-700",
-    badge: "bg-amber-100 text-amber-700 border-amber-200",
-    icon: CalendarClock,
+    iconBg: "bg-amber-500",
+    gradientFrom: "from-amber-500",
+    gradientTo: "to-yellow-600",
+    borderColor: "border-amber-200",
+    textColor: "text-amber-700",
+    badgeBg: "bg-amber-100",
+    badgeText: "text-amber-700",
+    dotColor: "bg-amber-500",
+    headerBar: "bg-gradient-to-r from-amber-500 to-yellow-600",
+    lightBg: "bg-amber-50",
+    ringColor: "ring-amber-200",
+    chartColor: "#F59E0B",
   },
   "long-term": {
-    label: "Largo plazo",
+    label: "Largo Plazo",
     sublabel: "12-24 meses",
-    color: "bg-blue-500",
-    lightBg: "bg-blue-50 border-blue-200",
-    text: "text-blue-700",
-    badge: "bg-blue-100 text-blue-700 border-blue-200",
-    icon: CalendarRange,
+    iconBg: "bg-blue-500",
+    gradientFrom: "from-blue-500",
+    gradientTo: "to-indigo-600",
+    borderColor: "border-blue-200",
+    textColor: "text-blue-700",
+    badgeBg: "bg-blue-100",
+    badgeText: "text-blue-700",
+    dotColor: "bg-blue-500",
+    headerBar: "bg-gradient-to-r from-blue-500 to-indigo-600",
+    lightBg: "bg-blue-50",
+    ringColor: "ring-blue-200",
+    chartColor: "#3B82F6",
   },
-} as const;
+};
 
-type Priority = keyof typeof priorityConfig;
+const priorityIcons: Record<Priority, React.ComponentType<{ className?: string }>> = {
+  immediate: AlertTriangle,
+  "short-term": Clock,
+  "medium-term": Calendar,
+  "long-term": Target,
+};
+
+const PRIORITIES: Priority[] = ["immediate", "short-term", "medium-term", "long-term"];
+
+// ─── Helpers ────────────────────────────────────────────────────────────────
 
 function getFilteredRecommendations(domainResults: DomainResult[]): Recommendation[] {
   const domainRiskMap = new Map<string, RiskLevel>();
@@ -84,11 +156,9 @@ function getFilteredRecommendations(domainResults: DomainResult[]): Recommendati
       domainRiskMap.set(dr.cipId, dr.riskLevel);
     }
   }
-
   return recommendations.filter((rec) => {
     const domainRisk = domainRiskMap.get(rec.cipId);
     if (!domainRisk) return false;
-    // Show recommendations that match the domain risk level or worse (more severe)
     return riskSeverity[rec.riskLevel] >= riskSeverity[domainRisk];
   });
 }
@@ -98,239 +168,375 @@ function isQuickWin(rec: Recommendation): boolean {
   return (
     effort.includes("1-2 semanas") ||
     effort.includes("1 semana") ||
+    effort.includes("2 semanas") ||
     effort.includes("2-3 dias") ||
     effort.includes("1-2 dias") ||
+    effort.includes("1 mes") ||
     effort.includes("inmediato")
   );
 }
 
-// ─── Summary Card ───────────────────────────────────────────────────────────
+// ─── Priority Distribution Card ─────────────────────────────────────────────
 
-function SummaryCard({
-  label,
-  value,
-  icon: Icon,
-  colorClass,
-  bgClass,
+function PriorityCard({
+  priority,
+  count,
+  total,
 }: {
-  label: string;
-  value: number;
-  icon: React.ComponentType<{ className?: string }>;
-  colorClass: string;
-  bgClass: string;
+  priority: Priority;
+  count: number;
+  total: number;
 }) {
-  return (
-    <div className={cn("rounded-2xl border p-6 flex items-center gap-4", bgClass)}>
-      <div
-        className={cn(
-          "w-12 h-12 rounded-xl flex items-center justify-center bg-white shadow-sm",
-          colorClass
-        )}
-      >
-        <Icon className="w-6 h-6" />
-      </div>
-      <div>
-        <p className="text-2xl font-black text-slate-900">{value}</p>
-        <p className="text-sm text-slate-500 font-medium">{label}</p>
-      </div>
-    </div>
-  );
-}
-
-// ─── Recommendation Card ────────────────────────────────────────────────────
-
-function RecommendationCard({
-  rec,
-  compact = false,
-}: {
-  rec: Recommendation;
-  compact?: boolean;
-}) {
-  const [checked, setChecked] = useState(false);
-  const pConfig = priorityConfig[rec.priority];
-  const standard = cipStandards.find((s) => s.id === rec.cipId);
+  const config = priorityConfig[priority];
+  const Icon = priorityIcons[priority];
+  const percentage = total > 0 ? Math.round((count / total) * 100) : 0;
 
   return (
     <div
       className={cn(
-        "rounded-xl border bg-white p-4 transition-all duration-200",
-        checked
-          ? "border-green-200 bg-green-50/50 opacity-75"
-          : "border-slate-200 hover:border-slate-300 hover:shadow-sm"
+        "relative overflow-hidden rounded-2xl border p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 group",
+        config.borderColor,
+        config.lightBg
       )}
     >
-      <div className="flex items-start gap-3">
-        {/* Checkbox */}
-        <button
-          onClick={() => setChecked(!checked)}
-          className="mt-0.5 shrink-0 transition-colors"
-          aria-label={checked ? "Marcar como pendiente" : "Marcar como completado"}
-        >
-          {checked ? (
-            <CheckCircle2 className="w-5 h-5 text-green-500" />
-          ) : (
-            <Circle className="w-5 h-5 text-slate-300 hover:text-slate-400" />
-          )}
-        </button>
+      {/* Decorative gradient blob */}
+      <div
+        className={cn(
+          "absolute -top-8 -right-8 w-24 h-24 rounded-full opacity-20 blur-2xl transition-opacity group-hover:opacity-30",
+          config.iconBg
+        )}
+      />
 
-        <div className="flex-1 min-w-0">
-          {/* Title row */}
-          <div className="flex items-start justify-between gap-2 flex-wrap">
-            <h4
-              className={cn(
-                "font-semibold text-sm",
-                checked ? "line-through text-slate-400" : "text-slate-900"
-              )}
-            >
-              {rec.title}
-            </h4>
-            <span
-              className={cn(
-                "inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold rounded-full border shrink-0",
-                pConfig.badge
-              )}
-            >
-              <pConfig.icon className="w-3 h-3" />
-              {pConfig.label}
-            </span>
-          </div>
-
-          {/* Description */}
-          {!compact && (
-            <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">
-              {rec.description}
-            </p>
-          )}
-
-          {/* Meta row */}
-          <div className="flex items-center gap-3 mt-2.5 flex-wrap">
-            <span className="inline-flex items-center gap-1 text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-md">
-              {rec.cipId}
-              {standard && ` - ${standard.name}`}
-            </span>
-            <span
-              className="inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-md"
-              style={{
-                backgroundColor: getRiskColor(rec.riskLevel) + "18",
-                color: getRiskColor(rec.riskLevel),
-              }}
-            >
-              Riesgo {getRiskLabel(rec.riskLevel)}
-            </span>
-            {!compact && (
-              <span className="inline-flex items-center gap-1 text-xs text-slate-400">
-                <Clock className="w-3 h-3" />
-                {rec.estimatedEffort}
-              </span>
+      <div className="relative flex items-start justify-between">
+        <div>
+          <div
+            className={cn(
+              "w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-md mb-3",
+              config.iconBg
             )}
+          >
+            <Icon className="w-5 h-5" />
           </div>
+          <p className="text-3xl font-black text-slate-900 tracking-tight">{count}</p>
+          <p className={cn("text-sm font-bold mt-0.5", config.textColor)}>
+            {config.label}
+          </p>
+          <p className="text-xs text-slate-500 mt-0.5">{config.sublabel}</p>
+        </div>
+        <div className="text-right">
+          <span
+            className={cn(
+              "inline-block text-xs font-bold px-2.5 py-1 rounded-full",
+              config.badgeBg,
+              config.badgeText
+            )}
+          >
+            {percentage}%
+          </span>
+        </div>
+      </div>
 
-          {/* Resources */}
-          {!compact && (
-            <div className="mt-2.5 text-xs text-slate-400">
-              <span className="font-medium text-slate-500">Recursos:</span>{" "}
-              {rec.resources}
+      {/* Mini progress bar */}
+      <div className="mt-4 h-1.5 bg-white/60 rounded-full overflow-hidden">
+        <div
+          className={cn("h-full rounded-full transition-all duration-700", config.iconBg)}
+          style={{ width: `${percentage}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
+// ─── Hero Donut Chart ───────────────────────────────────────────────────────
+
+function PriorityDonut({
+  byPriority,
+}: {
+  byPriority: Record<Priority, Recommendation[]>;
+}) {
+  const data = PRIORITIES.map((p) => ({
+    name: priorityConfig[p].label,
+    value: byPriority[p].length,
+    fill: priorityConfig[p].chartColor,
+  })).filter((d) => d.value > 0);
+
+  if (data.length === 0) return null;
+
+  return (
+    <div className="w-40 h-40 shrink-0">
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            innerRadius={42}
+            outerRadius={68}
+            paddingAngle={3}
+            dataKey="value"
+            strokeWidth={0}
+          >
+            {data.map((entry, idx) => (
+              <Cell key={idx} fill={entry.fill} />
+            ))}
+          </Pie>
+          <Tooltip
+            contentStyle={{
+              borderRadius: "12px",
+              border: "1px solid #e2e8f0",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+              fontSize: "13px",
+            }}
+            formatter={(value, name) => [`${value} acciones`, `${name}`]}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+// ─── Visual Timeline ────────────────────────────────────────────────────────
+
+function VisualTimeline({
+  byPriority,
+  domainResults,
+}: {
+  byPriority: Record<Priority, Recommendation[]>;
+  domainResults: DomainResult[];
+}) {
+  return (
+    <div className="relative">
+      {/* Background connector line */}
+      <div className="hidden lg:block absolute top-[52px] left-[calc(12.5%)] right-[calc(12.5%)] h-1 bg-gradient-to-r from-red-300 via-amber-300 to-blue-300 rounded-full z-0" />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+        {PRIORITIES.map((p, index) => {
+          const config = priorityConfig[p];
+          const recs = byPriority[p];
+          const Icon = priorityIcons[p];
+
+          // Collect unique affected domains
+          const affectedDomains = new Set<string>();
+          for (const rec of recs) {
+            affectedDomains.add(rec.cipId);
+          }
+
+          return (
+            <div key={p} className="flex flex-col items-center">
+              {/* Phase marker */}
+              <div className="flex flex-col items-center mb-4">
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                  Fase {index + 1}
+                </div>
+                <div
+                  className={cn(
+                    "w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg ring-4 ring-white",
+                    config.iconBg
+                  )}
+                >
+                  <Icon className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* Phase card */}
+              <div
+                className={cn(
+                  "w-full rounded-2xl border bg-white p-5 text-center transition-all duration-300 hover:shadow-md",
+                  config.borderColor
+                )}
+              >
+                <h4 className={cn("font-bold text-sm", config.textColor)}>
+                  {config.label}
+                </h4>
+                <p className="text-xs text-slate-500 mt-0.5">{config.sublabel}</p>
+
+                <div className="mt-3 flex items-center justify-center gap-3">
+                  <div>
+                    <p className="text-2xl font-black text-slate-900">{recs.length}</p>
+                    <p className="text-[10px] text-slate-500 uppercase tracking-wider">
+                      Acciones
+                    </p>
+                  </div>
+                  <div className="w-px h-8 bg-slate-200" />
+                  <div>
+                    <p className="text-2xl font-black text-slate-900">
+                      {affectedDomains.size}
+                    </p>
+                    <p className="text-[10px] text-slate-500 uppercase tracking-wider">
+                      Dominios
+                    </p>
+                  </div>
+                </div>
+
+                {/* Affected domain pills */}
+                {affectedDomains.size > 0 && (
+                  <div className="mt-3 flex flex-wrap justify-center gap-1">
+                    {Array.from(affectedDomains)
+                      .slice(0, 4)
+                      .map((cipId) => (
+                        <span
+                          key={cipId}
+                          className="text-[10px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full"
+                        >
+                          {cipId}
+                        </span>
+                      ))}
+                    {affectedDomains.size > 4 && (
+                      <span className="text-[10px] font-medium text-slate-400 px-1 py-0.5">
+                        +{affectedDomains.size - 4}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ─── Quick Win Card ─────────────────────────────────────────────────────────
+
+function QuickWinCard({ rec }: { rec: Recommendation }) {
+  const standard = cipStandards.find((s) => s.id === rec.cipId);
+  return (
+    <div className="flex items-start gap-3 p-4 rounded-xl bg-white border border-emerald-100 hover:border-emerald-300 hover:shadow-md transition-all duration-200 group">
+      <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0 group-hover:bg-emerald-200 transition-colors">
+        <Sparkles className="w-4 h-4 text-emerald-600" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <h4 className="text-sm font-semibold text-slate-900 leading-snug line-clamp-2">
+          {rec.title}
+        </h4>
+        <div className="flex items-center gap-2 mt-2 flex-wrap">
+          <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
+            {rec.cipId}
+          </span>
+          {standard && (
+            <span className="text-[10px] text-slate-400 truncate max-w-[120px]">
+              {standard.name}
+            </span>
           )}
+          <span className="ml-auto text-[10px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+            <Clock className="w-2.5 h-2.5" />
+            {rec.estimatedEffort}
+          </span>
         </div>
       </div>
     </div>
   );
 }
 
-// ─── Domain Accordion ───────────────────────────────────────────────────────
+// ─── Expandable Action Card ─────────────────────────────────────────────────
 
-function DomainAccordion({
-  cipId,
-  domainResult,
-  recs,
-}: {
-  cipId: string;
-  domainResult: DomainResult;
-  recs: Recommendation[];
-}) {
-  const [open, setOpen] = useState(false);
-  const standard = cipStandards.find((s) => s.id === cipId);
-  const riskColor = getRiskColor(domainResult.riskLevel);
+function ActionCard({ rec }: { rec: Recommendation }) {
+  const [expanded, setExpanded] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const config = priorityConfig[rec.priority];
+  const standard = cipStandards.find((s) => s.id === rec.cipId);
+  const riskColor = getRiskColor(rec.riskLevel);
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden">
-      {/* Header */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 transition-colors"
-      >
-        <div className="flex items-center gap-4">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm shrink-0"
-            style={{ backgroundColor: riskColor }}
+    <div
+      className={cn(
+        "rounded-xl border bg-white transition-all duration-200",
+        checked
+          ? "border-green-200 bg-green-50/40 opacity-70"
+          : "border-slate-200 hover:border-slate-300 hover:shadow-md"
+      )}
+    >
+      <div className="p-4">
+        <div className="flex items-start gap-3">
+          {/* Visual checkbox */}
+          <button
+            onClick={() => setChecked(!checked)}
+            className="mt-0.5 shrink-0 transition-transform hover:scale-110"
+            aria-label={checked ? "Marcar como pendiente" : "Marcar como completado"}
           >
-            {Math.round(domainResult.score)}
-          </div>
-          <div>
-            <h3 className="font-bold text-slate-900 text-sm">
-              {cipId} &mdash; {standard?.name ?? cipId}
-            </h3>
-            <p className="text-xs text-slate-500 mt-0.5">
-              {recs.length} recomendacion{recs.length !== 1 ? "es" : ""} &middot;{" "}
-              Riesgo{" "}
-              <span className="font-semibold" style={{ color: riskColor }}>
-                {getRiskLabel(domainResult.riskLevel)}
+            {checked ? (
+              <CheckCircle2 className="w-5 h-5 text-green-500" />
+            ) : (
+              <Circle className="w-5 h-5 text-slate-300 hover:text-slate-400" />
+            )}
+          </button>
+
+          <div className="flex-1 min-w-0">
+            {/* Title */}
+            <div className="flex items-start justify-between gap-2">
+              <h4
+                className={cn(
+                  "font-bold text-sm leading-snug",
+                  checked ? "line-through text-slate-400" : "text-slate-900"
+                )}
+              >
+                {rec.title}
+              </h4>
+            </div>
+
+            {/* Badge row */}
+            <div className="flex items-center gap-2 mt-2.5 flex-wrap">
+              <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md">
+                {rec.cipId}
+                {standard && ` \u2014 ${standard.name}`}
               </span>
-              {" "}&middot;{" "}
-              {domainResult.gaps.length} brecha{domainResult.gaps.length !== 1 ? "s" : ""}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          {/* Priority badges summary */}
-          <div className="hidden sm:flex items-center gap-1">
-            {(["immediate", "short-term", "medium-term", "long-term"] as Priority[]).map(
-              (p) => {
-                const count = recs.filter((r) => r.priority === p).length;
-                if (count === 0) return null;
-                return (
-                  <span
-                    key={p}
-                    className={cn(
-                      "inline-flex items-center justify-center w-6 h-6 text-xs font-bold rounded-full",
-                      priorityConfig[p].badge
-                    )}
-                  >
-                    {count}
-                  </span>
-                );
-              }
+              <span
+                className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-md"
+                style={{
+                  backgroundColor: riskColor + "18",
+                  color: riskColor,
+                }}
+              >
+                Riesgo {getRiskLabel(rec.riskLevel)}
+              </span>
+              <span
+                className={cn(
+                  "inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-md",
+                  config.badgeBg,
+                  config.badgeText
+                )}
+              >
+                <Clock className="w-3 h-3" />
+                {rec.estimatedEffort}
+              </span>
+            </div>
+
+            {/* Expandable description */}
+            {expanded && (
+              <div className="mt-3 space-y-2 animate-in slide-in-from-top-2 duration-200">
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  {rec.description}
+                </p>
+                <div className="text-xs text-slate-500 bg-slate-50 rounded-lg p-3 border border-slate-100">
+                  <span className="font-semibold text-slate-700">Recursos necesarios:</span>{" "}
+                  {rec.resources}
+                </div>
+              </div>
             )}
           </div>
-          {open ? (
-            <ChevronDown className="w-5 h-5 text-slate-400" />
-          ) : (
-            <ChevronRight className="w-5 h-5 text-slate-400" />
-          )}
-        </div>
-      </button>
 
-      {/* Body */}
-      {open && (
-        <div className="border-t border-slate-100 p-5 space-y-3 bg-slate-50/50">
-          {recs
-            .sort(
-              (a, b) =>
-                riskSeverity[b.riskLevel] - riskSeverity[a.riskLevel]
-            )
-            .map((rec) => (
-              <RecommendationCard key={rec.id} rec={rec} />
-            ))}
+          {/* Expand button */}
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+            aria-label={expanded ? "Contraer" : "Expandir"}
+          >
+            {expanded ? (
+              <ChevronUp className="w-4 h-4" />
+            ) : (
+              <ChevronDown className="w-4 h-4" />
+            )}
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 }
 
-// ─── Timeline Column ────────────────────────────────────────────────────────
+// ─── Priority Section ───────────────────────────────────────────────────────
 
-function TimelineColumn({
+function PrioritySection({
   priority,
   recs,
 }: {
@@ -338,77 +544,169 @@ function TimelineColumn({
   recs: Recommendation[];
 }) {
   const config = priorityConfig[priority];
-  const Icon = config.icon;
+  const Icon = priorityIcons[priority];
+  const [showAll, setShowAll] = useState(false);
+  const displayedRecs = showAll ? recs : recs.slice(0, 5);
+
+  if (recs.length === 0) return null;
 
   return (
-    <div className="flex flex-col">
-      {/* Column header */}
-      <div
-        className={cn(
-          "rounded-t-xl border px-4 py-3 flex items-center gap-2",
-          config.lightBg
-        )}
-      >
-        <Icon className={cn("w-4 h-4", config.text)} />
-        <div>
-          <h4 className={cn("font-bold text-sm", config.text)}>{config.label}</h4>
-          <p className="text-xs text-slate-500">{config.sublabel}</p>
+    <div className="rounded-2xl border border-slate-200 overflow-hidden bg-white shadow-sm">
+      {/* Colored header */}
+      <div className={cn("px-6 py-4 text-white flex items-center gap-3", config.headerBar)}>
+        <Icon className="w-5 h-5" />
+        <div className="flex-1">
+          <h3 className="font-bold text-base">{config.label}</h3>
+          <p className="text-sm text-white/80">{config.sublabel}</p>
         </div>
-        <span
-          className={cn(
-            "ml-auto inline-flex items-center justify-center w-7 h-7 text-sm font-bold rounded-full",
-            config.badge
-          )}
-        >
-          {recs.length}
-        </span>
+        <span className="text-2xl font-black">{recs.length}</span>
       </div>
 
-      {/* Column body */}
-      <div className="border border-t-0 border-slate-200 rounded-b-xl bg-white p-3 space-y-2 flex-1 min-h-[120px]">
-        {recs.length === 0 ? (
-          <p className="text-xs text-slate-400 italic text-center py-4">
-            Sin recomendaciones
-          </p>
-        ) : (
-          recs
-            .sort((a, b) => riskSeverity[b.riskLevel] - riskSeverity[a.riskLevel])
-            .map((rec) => {
-              const riskColor = getRiskColor(rec.riskLevel);
+      {/* Cards list */}
+      <div className="p-4 space-y-3">
+        {displayedRecs
+          .sort((a, b) => riskSeverity[b.riskLevel] - riskSeverity[a.riskLevel])
+          .map((rec) => (
+            <ActionCard key={rec.id} rec={rec} />
+          ))}
+
+        {recs.length > 5 && (
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="w-full text-center text-sm font-semibold text-slate-500 hover:text-slate-700 py-2 transition-colors"
+          >
+            {showAll
+              ? "Mostrar menos"
+              : `Ver ${recs.length - 5} acciones más`}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Domain Risk Summary Table ──────────────────────────────────────────────
+
+function DomainRiskTable({
+  domainResults,
+  byDomain,
+}: {
+  domainResults: DomainResult[];
+  byDomain: Map<string, Recommendation[]>;
+}) {
+  const sortedDomains = [...domainResults]
+    .filter((dr) => dr.score < 100)
+    .sort(
+      (a, b) =>
+        riskSeverity[b.riskLevel] - riskSeverity[a.riskLevel] || a.score - b.score
+    );
+
+  if (sortedDomains.length === 0) return null;
+
+  return (
+    <div className="rounded-2xl border border-slate-200 overflow-hidden bg-white shadow-sm">
+      <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+        <Shield className="w-5 h-5 text-slate-700" />
+        <h3 className="font-bold text-base text-slate-900">
+          Resumen de Riesgo por Dominio CIP
+        </h3>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-slate-100">
+              <th className="text-left px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                Dominio CIP
+              </th>
+              <th className="text-center px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                Puntuación
+              </th>
+              <th className="text-center px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                Nivel de Riesgo
+              </th>
+              <th className="text-center px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                Brechas
+              </th>
+              <th className="text-center px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedDomains.map((dr, idx) => {
+              const standard = cipStandards.find((s) => s.id === dr.cipId);
+              const riskColor = getRiskColor(dr.riskLevel);
+              const actionCount = byDomain.get(dr.cipId)?.length ?? 0;
+
               return (
-                <div
-                  key={rec.id}
-                  className="rounded-lg border border-slate-100 bg-slate-50/50 p-3 hover:bg-white hover:border-slate-200 transition-colors"
+                <tr
+                  key={dr.cipId}
+                  className={cn(
+                    "border-b border-slate-50 transition-colors hover:bg-slate-50/50",
+                    idx % 2 === 0 ? "bg-white" : "bg-slate-50/30"
+                  )}
                 >
-                  <div className="flex items-start gap-2">
-                    <div
-                      className="w-2 h-2 rounded-full mt-1.5 shrink-0"
-                      style={{ backgroundColor: riskColor }}
-                    />
-                    <div className="min-w-0">
-                      <p className="text-xs font-semibold text-slate-800 leading-snug">
-                        {rec.title}
-                      </p>
-                      <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                        <span className="text-[10px] font-medium text-slate-400">
-                          {rec.cipId}
-                        </span>
-                        <span
-                          className="text-[10px] font-semibold px-1.5 py-0.5 rounded"
-                          style={{
-                            backgroundColor: riskColor + "18",
-                            color: riskColor,
-                          }}
-                        >
-                          {getRiskLabel(rec.riskLevel)}
-                        </span>
+                  <td className="px-6 py-3.5">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-2 h-8 rounded-full shrink-0"
+                        style={{ backgroundColor: riskColor }}
+                      />
+                      <div>
+                        <p className="font-bold text-slate-900 text-sm">{dr.cipId}</p>
+                        <p className="text-xs text-slate-500 truncate max-w-[200px]">
+                          {standard?.name ?? ""}
+                        </p>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </td>
+                  <td className="px-4 py-3.5 text-center">
+                    <div className="inline-flex items-center gap-2">
+                      <div className="w-16 h-2 bg-slate-100 rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all"
+                          style={{
+                            width: `${dr.score}%`,
+                            backgroundColor: riskColor,
+                          }}
+                        />
+                      </div>
+                      <span className="text-sm font-bold text-slate-700 tabular-nums w-10">
+                        {Math.round(dr.score)}%
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3.5 text-center">
+                    <span
+                      className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full"
+                      style={{
+                        backgroundColor: riskColor + "18",
+                        color: riskColor,
+                      }}
+                    >
+                      <span
+                        className="w-2 h-2 rounded-full"
+                        style={{ backgroundColor: riskColor }}
+                      />
+                      {getRiskLabel(dr.riskLevel)}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3.5 text-center">
+                    <span className="text-sm font-semibold text-slate-700">
+                      {dr.gaps.length}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3.5 text-center">
+                    <span className="text-sm font-bold text-slate-900">
+                      {actionCount}
+                    </span>
+                  </td>
+                </tr>
               );
-            })
-        )}
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );
@@ -421,11 +719,14 @@ function TimelineColumn({
 export default function PlanAccionPage() {
   const evaluation = useEvaluationStore((s) => s.evaluation);
   const domainResults = useEvaluationStore((s) => s.domainResults);
+  const globalScore = useEvaluationStore((s) => s.globalScore);
+  const globalRiskLevel = useEvaluationStore((s) => s.globalRiskLevel);
+  const exportEvaluation = useEvaluationStore((s) => s.exportEvaluation);
 
   const hasAnswers = evaluation && Object.keys(evaluation.answers).length > 0;
   const hasResults = domainResults.length > 0;
 
-  // Filtered recommendations based on domain risk levels
+  // Filtered recommendations
   const filteredRecs = useMemo(
     () => (hasResults ? getFilteredRecommendations(domainResults) : []),
     [domainResults, hasResults]
@@ -457,203 +758,295 @@ export default function PlanAccionPage() {
 
   // Quick wins
   const quickWins = useMemo(
-    () => filteredRecs.filter(isQuickWin),
+    () => filteredRecs.filter(isQuickWin).slice(0, 6),
     [filteredRecs]
   );
 
-  // Domains with gaps (score < 100)
-  const domainsWithGaps = useMemo(
-    () => domainResults.filter((dr) => dr.score < 100),
-    [domainResults]
-  );
+  // High priority count
+  const highPriorityCount = byPriority.immediate.length + byPriority["short-term"].length;
 
-  // ── Empty state ──────────────────────────────────────────────────────────
+  // Export JSON handler
+  const handleExportJSON = useCallback(() => {
+    const planData = {
+      entityName: evaluation?.entityName,
+      entityType: evaluation?.entityType,
+      impactLevel: evaluation?.impactLevel,
+      exportDate: new Date().toISOString(),
+      globalScore,
+      globalRiskLevel,
+      totalActions: filteredRecs.length,
+      actionsByPriority: {
+        immediate: byPriority.immediate.length,
+        shortTerm: byPriority["short-term"].length,
+        mediumTerm: byPriority["medium-term"].length,
+        longTerm: byPriority["long-term"].length,
+      },
+      recommendations: filteredRecs,
+      domainResults,
+    };
+    const blob = new Blob([JSON.stringify(planData, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `plan-accion-${evaluation?.entityName?.replace(/\s+/g, "-").toLowerCase() ?? "export"}-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [evaluation, filteredRecs, byPriority, domainResults, globalScore, globalRiskLevel]);
+
+  // ── Empty State ─────────────────────────────────────────────────────────
 
   if (!hasAnswers || !hasResults) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-        <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-6">
-          <ShieldAlert className="w-10 h-10 text-slate-400" />
+      <div className="flex flex-col items-center justify-center min-h-[70vh] text-center px-4">
+        <div className="relative mb-8">
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
+            <ShieldAlert className="w-12 h-12 text-slate-400" />
+          </div>
+          <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center border-4 border-white">
+            <AlertTriangle className="w-4 h-4 text-amber-500" />
+          </div>
         </div>
-        <h1 className="text-2xl font-bold text-slate-900 mb-3">
-          Plan de Accion No Disponible
+        <h1 className="text-3xl font-black text-slate-900 mb-3">
+          Plan de Acción No Disponible
         </h1>
-        <p className="text-slate-500 max-w-md mb-8">
-          Complete la evaluacion primero para generar el plan de accion con
-          recomendaciones priorizadas y linea de tiempo.
+        <p className="text-slate-500 max-w-lg mb-8 leading-relaxed">
+          Para generar un plan de acción con recomendaciones priorizadas, línea de tiempo
+          de implementación y análisis detallado de brechas, primero debe completar la
+          evaluación de cumplimiento CIP.
         </p>
-        <Link
-          href="/evaluacion"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/25"
-        >
-          <Target className="w-5 h-5" />
-          Iniciar Evaluacion
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/evaluacion"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/30 hover:-translate-y-0.5"
+          >
+            <Target className="w-5 h-5" />
+            Iniciar Evaluación
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 px-5 py-3.5 text-sm font-medium text-slate-600 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Dashboard
+          </Link>
+        </div>
       </div>
     );
   }
 
-  // ── Summary stats ────────────────────────────────────────────────────────
+  // ── Main Render ─────────────────────────────────────────────────────────
 
-  const summaryCards = [
-    {
-      label: "Total Recomendaciones",
-      value: filteredRecs.length,
-      icon: ListChecks,
-      colorClass: "text-indigo-600",
-      bgClass: "bg-indigo-50 border-indigo-100",
-    },
-    {
-      label: "Acciones Inmediatas",
-      value: byPriority.immediate.length,
-      icon: Zap,
-      colorClass: "text-red-600",
-      bgClass: "bg-red-50 border-red-100",
-    },
-    {
-      label: "Corto Plazo",
-      value: byPriority["short-term"].length,
-      icon: Clock,
-      colorClass: "text-orange-600",
-      bgClass: "bg-orange-50 border-orange-100",
-    },
-    {
-      label: "Mediano Plazo",
-      value: byPriority["medium-term"].length,
-      icon: CalendarClock,
-      colorClass: "text-amber-600",
-      bgClass: "bg-amber-50 border-amber-100",
-    },
-  ];
-
-  // ── Render ───────────────────────────────────────────────────────────────
+  const formattedDate = new Date(
+    evaluation?.lastModified ?? ""
+  ).toLocaleDateString("es-CL", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
-      {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        <div>
-          <h1 className="text-2xl font-black text-slate-900">Plan de Accion</h1>
-          <p className="text-sm text-slate-500 mt-1">
-            {evaluation?.entityName} &mdash;{" "}
-            {new Date(evaluation?.lastModified ?? "").toLocaleDateString("es-CL")}
-          </p>
+    <div className="max-w-7xl mx-auto space-y-8 pb-12">
+      {/* ═══ 1. HERO SECTION ═══════════════════════════════════════════════ */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 p-8 lg:p-10 text-white">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-blue-500/20 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-tr from-indigo-500/15 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-white/[0.03] to-transparent rounded-full" />
+
+        <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
+                <ListChecks className="w-5 h-5 text-blue-300" />
+              </div>
+              <span className="text-xs font-bold text-blue-300 uppercase tracking-widest">
+                Plan de Acción
+              </span>
+            </div>
+
+            <h1 className="text-3xl lg:text-4xl font-black tracking-tight mb-2">
+              Plan de Acción de Ciberseguridad
+            </h1>
+            <p className="text-slate-400 text-sm">
+              {evaluation?.entityName} &mdash; {formattedDate}
+            </p>
+
+            <div className="mt-5 flex items-center gap-4 flex-wrap">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-2.5">
+                <Activity className="w-4 h-4 text-blue-300" />
+                <span className="text-sm font-semibold">
+                  {filteredRecs.length} acciones identificadas
+                </span>
+              </div>
+              {highPriorityCount > 0 && (
+                <div className="inline-flex items-center gap-2 bg-red-500/20 backdrop-blur-sm border border-red-400/30 rounded-xl px-4 py-2.5">
+                  <AlertTriangle className="w-4 h-4 text-red-300" />
+                  <span className="text-sm font-semibold text-red-200">
+                    {highPriorityCount} de alta prioridad
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Donut chart */}
+          <PriorityDonut byPriority={byPriority} />
         </div>
-        <div className="flex gap-3">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Volver al Dashboard
-          </Link>
-          <Link
-            href="/reportes"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-600/25"
-          >
-            <FileText className="w-4 h-4" />
-            Generar Reporte
-          </Link>
+
+        {/* Hero legend */}
+        <div className="relative mt-6 pt-5 border-t border-white/10 flex items-center gap-6 flex-wrap">
+          {PRIORITIES.map((p) => {
+            const config = priorityConfig[p];
+            return (
+              <div key={p} className="flex items-center gap-2">
+                <span
+                  className="w-3 h-3 rounded-full"
+                  style={{ backgroundColor: config.chartColor }}
+                />
+                <span className="text-xs text-slate-400">
+                  {config.label} ({byPriority[p].length})
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* Summary Cards */}
+      {/* ═══ 2. PRIORITY DISTRIBUTION CARDS ═══════════════════════════════ */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {summaryCards.map((card) => (
-          <SummaryCard key={card.label} {...card} />
+        {PRIORITIES.map((p) => (
+          <PriorityCard
+            key={p}
+            priority={p}
+            count={byPriority[p].length}
+            total={filteredRecs.length}
+          />
         ))}
       </div>
 
-      {/* ── Timeline Visualization ─────────────────────────────────────── */}
+      {/* ═══ 3. VISUAL TIMELINE ═══════════════════════════════════════════ */}
       <div>
-        <div className="flex items-center gap-2 mb-4">
-          <Layers className="w-5 h-5 text-slate-700" />
-          <h2 className="text-lg font-bold text-slate-900">
-            Linea de Tiempo de Implementacion
-          </h2>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-9 h-9 rounded-xl bg-indigo-100 flex items-center justify-center">
+            <Layers className="w-5 h-5 text-indigo-600" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-slate-900">
+              Hoja de Ruta de Implementación
+            </h2>
+            <p className="text-xs text-slate-500">
+              Cronograma de ejecución en 4 fases progresivas
+            </p>
+          </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {(["immediate", "short-term", "medium-term", "long-term"] as Priority[]).map(
-            (p) => (
-              <TimelineColumn key={p} priority={p} recs={byPriority[p]} />
-            )
-          )}
-        </div>
+        <VisualTimeline byPriority={byPriority} domainResults={domainResults} />
       </div>
 
-      {/* ── Quick Wins ─────────────────────────────────────────────────── */}
+      {/* ═══ 4. QUICK WINS ═══════════════════════════════════════════════ */}
       {quickWins.length > 0 && (
         <div>
-          <div className="flex items-center gap-2 mb-4">
-            <Rocket className="w-5 h-5 text-emerald-600" />
-            <h2 className="text-lg font-bold text-slate-900">
-              Victorias Rapidas
-            </h2>
-            <span className="ml-2 text-xs font-medium text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
-              Bajo esfuerzo, alto impacto
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center">
+              <Zap className="w-5 h-5 text-emerald-600" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-slate-900">
+                Victorias Rápidas
+              </h2>
+              <p className="text-xs text-slate-500">
+                Acciones de bajo esfuerzo y alto impacto para resultados inmediatos
+              </p>
+            </div>
+            <span className="ml-auto text-xs font-bold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
+              {quickWins.length} oportunidades
             </span>
           </div>
-          <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200 p-5">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+          <div className="relative rounded-2xl border-2 border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-6 overflow-hidden">
+            {/* Subtle decorative */}
+            <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-100/40 rounded-full blur-3xl" />
+
+            <div className="relative grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
               {quickWins.map((rec) => (
-                <RecommendationCard key={rec.id} rec={rec} compact />
+                <QuickWinCard key={rec.id} rec={rec} />
               ))}
             </div>
           </div>
         </div>
       )}
 
-      {/* ── Detailed Recommendations by Domain ─────────────────────────── */}
+      {/* ═══ 5. DETAILED ACTION CARDS BY PRIORITY ═══════════════════════ */}
       <div>
-        <div className="flex items-center gap-2 mb-4">
-          <AlertTriangle className="w-5 h-5 text-slate-700" />
-          <h2 className="text-lg font-bold text-slate-900">
-            Recomendaciones por Dominio CIP
-          </h2>
-          <span className="ml-2 text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
-            {domainsWithGaps.length} dominio{domainsWithGaps.length !== 1 ? "s" : ""} con
-            brechas
-          </span>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center">
+            <TrendingUp className="w-5 h-5 text-slate-600" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-slate-900">
+              Acciones Detalladas por Prioridad
+            </h2>
+            <p className="text-xs text-slate-500">
+              Plan completo de implementación organizado por urgencia
+            </p>
+          </div>
         </div>
 
-        <div className="space-y-3">
-          {domainsWithGaps
-            .sort(
-              (a, b) =>
-                riskSeverity[b.riskLevel] - riskSeverity[a.riskLevel] ||
-                a.score - b.score
-            )
-            .map((dr) => {
-              const domainRecs = byDomain.get(dr.cipId) ?? [];
-              if (domainRecs.length === 0) return null;
-              return (
-                <DomainAccordion
-                  key={dr.cipId}
-                  cipId={dr.cipId}
-                  domainResult={dr}
-                  recs={domainRecs}
-                />
-              );
-            })}
+        <div className="space-y-6">
+          {PRIORITIES.map((p) => (
+            <PrioritySection
+              key={p}
+              priority={p}
+              recs={byPriority[p]}
+            />
+          ))}
         </div>
       </div>
 
-      {/* ── Bottom Navigation ──────────────────────────────────────────── */}
-      <div className="flex items-center justify-between py-6 border-t border-slate-200">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Volver al Dashboard
-        </Link>
-        <Link
-          href="/reportes"
-          className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-600/25"
-        >
-          <FileText className="w-4 h-4" />
-          Generar Reporte
-        </Link>
+      {/* ═══ 6. DOMAIN RISK SUMMARY TABLE ═══════════════════════════════ */}
+      <DomainRiskTable domainResults={domainResults} byDomain={byDomain} />
+
+      {/* ═══ 7. BOTTOM CTA ═══════════════════════════════════════════════ */}
+      <div className="rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-50 to-white p-6 lg:p-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-center sm:text-left">
+            <h3 className="font-bold text-lg text-slate-900">
+              Siguiente paso: genere su reporte
+            </h3>
+            <p className="text-sm text-slate-500 mt-1">
+              Descargue un informe completo en PDF o exporte los datos del plan
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 flex-wrap justify-center">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 px-5 py-3 text-sm font-medium text-slate-600 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Dashboard
+            </Link>
+
+            <button
+              onClick={handleExportJSON}
+              className="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold text-slate-700 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-all hover:shadow-sm"
+            >
+              <Download className="w-4 h-4" />
+              Exportar Plan (JSON)
+            </button>
+
+            <Link
+              href="/reportes"
+              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-600/25 hover:shadow-xl hover:-translate-y-0.5"
+            >
+              <FileText className="w-4 h-4" />
+              Generar Reporte PDF
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

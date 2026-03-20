@@ -92,7 +92,7 @@ export default function EvaluacionClient({ cipId }: { cipId: string }) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4">
         <p className="text-lg text-slate-600">
-          No se encontro el estandar CIP: <span className="font-mono font-bold">{cipId}</span>
+          No se encontró el estándar CIP: <span className="font-mono font-bold">{cipId}</span>
         </p>
         <Link
           href="/"
@@ -109,7 +109,7 @@ export default function EvaluacionClient({ cipId }: { cipId: string }) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4">
         <p className="text-lg text-slate-600">
-          No hay una evaluacion activa. Inicie una nueva evaluacion primero.
+          No hay una evaluación activa. Inicie una nueva evaluación primero.
         </p>
         <Link
           href="/"

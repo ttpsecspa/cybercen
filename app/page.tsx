@@ -48,15 +48,15 @@ function WelcomeScreen() {
           </span>
         </h1>
         <p className="mt-4 text-lg text-slate-500 max-w-lg mx-auto leading-relaxed">
-          Herramienta de autoevaluacion del Estandar de Ciberseguridad del
-          Coordinador Electrico Nacional
+          Herramienta de autoevaluación del Estándar de Ciberseguridad del
+          Coordinador Eléctrico Nacional
         </p>
       </div>
 
       {/* Form card */}
       <div className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/50 p-8">
         <h2 className="text-xl font-bold text-slate-800 mb-6">
-          Configurar Evaluacion
+          Configurar Evaluación
         </h2>
 
         {/* Entity name */}
@@ -68,7 +68,7 @@ function WelcomeScreen() {
             type="text"
             value={entityName}
             onChange={(e) => setEntityName(e.target.value)}
-            placeholder="Ej: Empresa Electrica del Norte S.A."
+            placeholder="Ej: Empresa Eléctrica del Norte S.A."
             className={cn(
               "w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-800",
               "placeholder:text-slate-400",
@@ -88,21 +88,21 @@ function WelcomeScreen() {
               [
                 {
                   value: "generation" as EntityType,
-                  label: "Generacion",
+                  label: "Generación",
                   icon: Zap,
                   desc: "Centrales y plantas",
                 },
                 {
                   value: "transmission" as EntityType,
-                  label: "Transmision",
+                  label: "Transmisión",
                   icon: BarChart3,
-                  desc: "Lineas y subestaciones",
+                  desc: "Líneas y subestaciones",
                 },
                 {
                   value: "distribution" as EntityType,
-                  label: "Distribucion",
+                  label: "Distribución",
                   icon: Building2,
-                  desc: "Redes de distribucion",
+                  desc: "Redes de distribución",
                 },
               ] as const
             ).map((opt) => (
@@ -149,7 +149,7 @@ function WelcomeScreen() {
             )}
           >
             <option value="high">
-              Alto - Instalaciones criticas para el SEN
+              Alto - Instalaciones críticas para el SEN
             </option>
             <option value="medium">
               Medio - Impacto significativo en operaciones
@@ -159,8 +159,8 @@ function WelcomeScreen() {
             </option>
           </select>
           <p className="mt-1.5 text-xs text-slate-400">
-            El nivel de impacto determina que controles CIP aplican a su
-            organizacion.
+            El nivel de impacto determina qué controles CIP aplican a su
+            organización.
           </p>
         </div>
 
@@ -177,7 +177,7 @@ function WelcomeScreen() {
             "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-lg"
           )}
         >
-          Iniciar Evaluacion
+          Iniciar Evaluación
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
@@ -188,16 +188,16 @@ function WelcomeScreen() {
           {
             icon: ListChecks,
             title: "12 Dominios CIP",
-            desc: "Evaluacion integral basada en estandares NERC CIP",
+            desc: "Evaluación integral basada en estándares NERC CIP",
           },
           {
             icon: AlertTriangle,
-            title: "Analisis de Brechas",
-            desc: "Identifica vulnerabilidades y prioriza remediacion",
+            title: "Análisis de Brechas",
+            desc: "Identifica vulnerabilidades y prioriza remediación",
           },
           {
             icon: CheckCircle2,
-            title: "Plan de Accion",
+            title: "Plan de Acción",
             desc: "Recomendaciones concretas con plazos y recursos",
           },
         ].map((feat) => (
@@ -262,12 +262,12 @@ function DashboardScreen() {
           Panel de Control
         </h1>
         <p className="text-sm text-slate-500 mt-1">
-          Evaluacion de {evaluation.entityName} &middot;{" "}
+          Evaluación de {evaluation.entityName} &middot;{" "}
           {evaluation.entityType === "generation"
-            ? "Generacion"
+            ? "Generación"
             : evaluation.entityType === "transmission"
-              ? "Transmision"
-              : "Distribucion"}{" "}
+              ? "Transmisión"
+              : "Distribución"}{" "}
           &middot; Impacto{" "}
           {evaluation.impactLevel === "high"
             ? "Alto"

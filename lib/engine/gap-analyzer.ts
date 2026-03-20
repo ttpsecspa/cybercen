@@ -13,7 +13,7 @@ export interface Gap {
 }
 
 /**
- * Resumen estadistico de todas las brechas.
+ * Resumen estadístico de todas las brechas.
  */
 export interface GapSummary {
   totalGaps: number;
@@ -34,7 +34,7 @@ export interface GapsByPriority {
   low: Gap[];
 }
 
-// Orden numerico de severidad para ordenamiento (menor = mas severo)
+// Orden numérico de severidad para ordenamiento (menor = más severo)
 const severityOrder: Record<RiskLevel, number> = {
   critical: 0,
   high: 1,
@@ -44,41 +44,41 @@ const severityOrder: Record<RiskLevel, number> = {
 };
 
 /**
- * Obtiene la accion sugerida en espanol segun la severidad del dominio.
+ * Obtiene la acción sugerida en español según la severidad del dominio.
  */
 function getSuggestedAction(severity: RiskLevel, description: string): string {
   if (description.includes('(No cumple)')) {
     switch (severity) {
       case 'critical':
-        return 'Implementar controles de forma inmediata. Este requisito es critico para la seguridad del sistema.';
+        return 'Implementar controles de forma inmediata. Este requisito es crítico para la seguridad del sistema.';
       case 'high':
-        return 'Desarrollar e implementar un plan correctivo en un plazo maximo de 30 dias.';
+        return 'Desarrollar e implementar un plan correctivo en un plazo máximo de 30 días.';
       case 'medium':
-        return 'Programar la implementacion de este control dentro del proximo trimestre.';
+        return 'Programar la implementación de este control dentro del próximo trimestre.';
       case 'low':
-        return 'Incluir en el plan de mejora continua para el proximo ciclo de evaluacion.';
+        return 'Incluir en el plan de mejora continua para el próximo ciclo de evaluación.';
       default:
-        return 'Mantener monitoreo y documentacion actualizada.';
+        return 'Mantener monitoreo y documentación actualizada.';
     }
   }
 
   // Cumplimiento parcial o sin respuesta
   switch (severity) {
     case 'critical':
-      return 'Completar la implementacion de forma urgente. El cumplimiento parcial representa un riesgo significativo.';
+      return 'Completar la implementación de forma urgente. El cumplimiento parcial representa un riesgo significativo.';
     case 'high':
-      return 'Reforzar los controles existentes y completar la implementacion en un plazo de 60 dias.';
+      return 'Reforzar los controles existentes y completar la implementación en un plazo de 60 días.';
     case 'medium':
-      return 'Evaluar las deficiencias y programar mejoras dentro del proximo semestre.';
+      return 'Evaluar las deficiencias y programar mejoras dentro del próximo semestre.';
     case 'low':
       return 'Documentar el estado actual y planificar mejoras incrementales.';
     default:
-      return 'Verificar el estado de cumplimiento y actualizar la documentacion.';
+      return 'Verificar el estado de cumplimiento y actualizar la documentación.';
   }
 }
 
 /**
- * Extrae el nombre del CIP desde la descripcion de la brecha.
+ * Extrae el nombre del CIP desde la descripción de la brecha.
  * Las brechas tienen formato: [CIP-XXX Nombre] Texto (Estado)
  */
 function extractCipName(gapDescription: string): string {
@@ -87,7 +87,7 @@ function extractCipName(gapDescription: string): string {
 }
 
 /**
- * Extrae la descripcion limpia de la brecha (sin el prefijo CIP).
+ * Extrae la descripción limpia de la brecha (sin el prefijo CIP).
  */
 function extractCleanDescription(gapDescription: string): string {
   return gapDescription.replace(/^\[[^\]]+\]\s*/, '');
@@ -118,7 +118,7 @@ function domainGapsToStructured(domainResult: DomainResult): Gap[] {
 
 /**
  * Analiza todas las brechas de todos los dominios y las retorna
- * ordenadas por severidad (mas criticas primero).
+ * ordenadas por severidad (más críticas primero).
  */
 export function analyzeGaps(domainResults: DomainResult[]): Gap[] {
   const allGaps: Gap[] = [];
@@ -128,14 +128,14 @@ export function analyzeGaps(domainResults: DomainResult[]): Gap[] {
     allGaps.push(...structured);
   }
 
-  // Ordenar por severidad (mas critico primero)
+  // Ordenar por severidad (más crítico primero)
   allGaps.sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);
 
   return allGaps;
 }
 
 /**
- * Retorna las N brechas mas criticas.
+ * Retorna las N brechas más críticas.
  */
 export function getTopGaps(domainResults: DomainResult[], count: number): Gap[] {
   const sorted = analyzeGaps(domainResults);
@@ -177,7 +177,7 @@ export function getGapsByPriority(domainResults: DomainResult[]): GapsByPriority
 }
 
 /**
- * Genera un resumen estadistico de todas las brechas.
+ * Genera un resumen estadístico de todas las brechas.
  */
 export function generateGapSummary(domainResults: DomainResult[]): GapSummary {
   const gaps = analyzeGaps(domainResults);

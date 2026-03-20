@@ -22,9 +22,9 @@
   </g>
   <!-- Title centered -->
   <text x="600" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="80" font-weight="800" fill="#f8fafc" text-anchor="middle">CyberCEN</text>
-  <text x="600" y="300" font-family="system-ui, sans-serif" font-size="32" fill="#94a3b8" text-anchor="middle">Autoevaluacion de Ciberseguridad</text>
+  <text x="600" y="300" font-family="system-ui, sans-serif" font-size="32" fill="#94a3b8" text-anchor="middle">Autoevaluación de Ciberseguridad</text>
   <rect x="560" y="320" width="80" height="3" rx="1.5" fill="#6366f1"/>
-  <text x="600" y="365" font-family="system-ui, sans-serif" font-size="24" fill="#64748b" text-anchor="middle">Estandar CEN | NERC CIP | Sector Electrico Chile</text>
+  <text x="600" y="365" font-family="system-ui, sans-serif" font-size="24" fill="#64748b" text-anchor="middle">Estándar CEN | NERC CIP | Sector Eléctrico Chile</text>
   <!-- Badges -->
   <g transform="translate(200, 420)">
     <rect x="0" y="0" width="180" height="44" rx="22" fill="#1e293b" stroke="#334155" stroke-width="1"/>
@@ -32,11 +32,11 @@
     <rect x="200" y="0" width="200" height="44" rx="22" fill="#1e293b" stroke="#334155" stroke-width="1"/>
     <text x="300" y="28" font-family="system-ui, sans-serif" font-size="15" fill="#22c55e" text-anchor="middle" font-weight="600">120 Controles</text>
     <rect x="420" y="0" width="200" height="44" rx="22" fill="#1e293b" stroke="#334155" stroke-width="1"/>
-    <text x="520" y="28" font-family="system-ui, sans-serif" font-size="15" fill="#f59e0b" text-anchor="middle" font-weight="600">Analisis Riesgo</text>
+    <text x="520" y="28" font-family="system-ui, sans-serif" font-size="15" fill="#f59e0b" text-anchor="middle" font-weight="600">Análisis Riesgo</text>
     <rect x="640" y="0" width="180" height="44" rx="22" fill="#1e293b" stroke="#334155" stroke-width="1"/>
     <text x="730" y="28" font-family="system-ui, sans-serif" font-size="15" fill="#ef4444" text-anchor="middle" font-weight="600">Reporte PDF</text>
   </g>
   <!-- TTPSEC -->
-  <text x="600" y="540" font-family="system-ui, sans-serif" font-size="18" fill="#475569" text-anchor="middle" font-weight="600">TTPSEC | Ciberseguridad Sector Energetico</text>
+  <text x="600" y="540" font-family="system-ui, sans-serif" font-size="18" fill="#475569" text-anchor="middle" font-weight="600">TTPSEC | Ciberseguridad Sector Energético</text>
   <rect x="0" y="596" width="1200" height="4" fill="#6366f1"/>
 </svg>

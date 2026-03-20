@@ -35,9 +35,9 @@ import type { DomainResult, RiskLevel } from "@/lib/data/types";
 // Entity type / impact level Spanish labels
 // ────────────────────────────────────────────────────────────
 const entityTypeLabels: Record<string, string> = {
-  generation: "Generacion",
-  transmission: "Transmision",
-  distribution: "Distribucion",
+  generation: "Generación",
+  transmission: "Transmisión",
+  distribution: "Distribución",
 };
 
 const impactLevelLabels: Record<string, string> = {
@@ -186,7 +186,7 @@ export default function ReportesClient() {
             pageHeight - 10
           );
           doc.text(
-            `Pagina ${doc.getNumberOfPages()}`,
+            `Página ${doc.getNumberOfPages()}`,
             pageWidth - marginRight,
             pageHeight - 10,
             { align: "right" }
@@ -253,7 +253,7 @@ export default function ReportesClient() {
         doc.setFont("helvetica", "bold");
         doc.setTextColor(255, 255, 255);
         const titleLines = doc.splitTextToSize(
-          "INFORME DE AUTOEVALUACION DE CIBERSEGURIDAD",
+          "INFORME DE AUTOEVALUACIÓN DE CIBERSEGURIDAD",
           maxWidth
         );
         let ty = 38;
@@ -266,7 +266,7 @@ export default function ReportesClient() {
         doc.setFont("helvetica", "normal");
         doc.setTextColor(148, 163, 184);
         const subtitleLines = doc.splitTextToSize(
-          "Estandar de Ciberseguridad - Coordinador Electrico Nacional",
+          "Estándar de Ciberseguridad - Coordinador Eléctrico Nacional",
           maxWidth
         );
         for (const line of subtitleLines) {
@@ -326,7 +326,7 @@ export default function ReportesClient() {
         doc.setFontSize(8);
         doc.setFont("helvetica", "normal");
         doc.text(
-          "Este informe contiene informacion sensible sobre la postura de ciberseguridad de la organizacion.",
+          "Este informe contiene información sensible sobre la postura de ciberseguridad de la organización.",
           pageWidth / 2,
           y + 14,
           { align: "center" }
@@ -370,7 +370,7 @@ export default function ReportesClient() {
             `Dominios evaluados: ${domainResults.length} de ${cipStandards.length}`,
             `Porcentaje de cumplimiento: ${summary.percentCompliant}%`,
             `Total de brechas identificadas: ${summary.totalGaps}`,
-            `Brechas criticas: ${summary.criticalGaps}`,
+            `Brechas críticas: ${summary.criticalGaps}`,
             `Brechas de riesgo alto: ${summary.highGaps}`,
             `Brechas de riesgo medio: ${summary.mediumGaps}`,
             `Brechas de riesgo bajo: ${summary.lowGaps}`,
@@ -386,7 +386,7 @@ export default function ReportesClient() {
 
           // Critical gaps summary
           if (allGaps.length > 0) {
-            boldText("Brechas Criticas Principales");
+            boldText("Brechas Críticas Principales");
             y += 2;
             const topGaps = allGaps.slice(0, 5);
             for (const gap of topGaps) {
@@ -405,24 +405,24 @@ export default function ReportesClient() {
           }
 
           y += 6;
-          boldText("Recomendacion General");
+          boldText("Recomendación General");
           y += 2;
           let overallRec: string;
           if (globalScore <= 25) {
             overallRec =
-              "La organizacion presenta un nivel de cumplimiento critico. Se requiere accion inmediata para abordar las brechas de seguridad identificadas, priorizando los dominios con mayor riesgo. Se recomienda implementar un plan de remediacion de emergencia.";
+              "La organización presenta un nivel de cumplimiento crítico. Se requiere acción inmediata para abordar las brechas de seguridad identificadas, priorizando los dominios con mayor riesgo. Se recomienda implementar un plan de remediación de emergencia.";
           } else if (globalScore <= 50) {
             overallRec =
               "El nivel de cumplimiento es insuficiente. Se deben desarrollar planes correctivos urgentes para los dominios con mayor riesgo. Es fundamental asignar recursos dedicados a la mejora de la postura de ciberseguridad.";
           } else if (globalScore <= 75) {
             overallRec =
-              "La organizacion muestra un cumplimiento moderado. Se recomienda desarrollar un plan de mejora estructurado para cerrar las brechas identificadas, especialmente en los dominios de mayor peso.";
+              "La organización muestra un cumplimiento moderado. Se recomienda desarrollar un plan de mejora estructurado para cerrar las brechas identificadas, especialmente en los dominios de mayor peso.";
           } else if (globalScore <= 90) {
             overallRec =
-              "El nivel de cumplimiento es bueno. Se sugiere enfocar esfuerzos en la optimizacion continua y en cerrar las brechas restantes para alcanzar un cumplimiento optimo.";
+              "El nivel de cumplimiento es bueno. Se sugiere enfocar esfuerzos en la optimización continua y en cerrar las brechas restantes para alcanzar un cumplimiento óptimo.";
           } else {
             overallRec =
-              "La organizacion presenta un nivel de cumplimiento optimo. Se recomienda mantener las practicas actuales, monitorear continuamente y realizar evaluaciones periodicas para asegurar la sostenibilidad del cumplimiento.";
+              "La organización presenta un nivel de cumplimiento óptimo. Se recomienda mantener las prácticas actuales, monitorear continuamente y realizar evaluaciones periódicas para asegurar la sostenibilidad del cumplimiento.";
           }
           bodyText(overallRec);
         }
@@ -434,12 +434,12 @@ export default function ReportesClient() {
           newPage();
           sectionTitle(
             includeExecutive
-              ? "2. Analisis por Dominio"
-              : "1. Analisis por Dominio"
+              ? "2. Análisis por Dominio"
+              : "1. Análisis por Dominio"
           );
 
           bodyText(
-            "La siguiente tabla muestra el resultado de la evaluacion para cada uno de los dominios CIP evaluados."
+            "La siguiente tabla muestra el resultado de la evaluación para cada uno de los dominios CIP evaluados."
           );
           y += 4;
 
@@ -514,7 +514,7 @@ export default function ReportesClient() {
             key: "critical" | "high" | "medium" | "low";
             label: string;
           }> = [
-            { key: "critical", label: "Brechas Criticas" },
+            { key: "critical", label: "Brechas Críticas" },
             { key: "high", label: "Brechas de Riesgo Alto" },
             { key: "medium", label: "Brechas de Riesgo Medio" },
             { key: "low", label: "Brechas de Riesgo Bajo" },
@@ -555,7 +555,7 @@ export default function ReportesClient() {
               doc.setFontSize(8);
               doc.setTextColor(100, 116, 139);
               doc.text(
-                `... y ${gaps.length - 15} brechas adicionales en esta categoria.`,
+                `... y ${gaps.length - 15} brechas adicionales en esta categoría.`,
                 marginLeft + 4,
                 y
               );
@@ -662,10 +662,10 @@ export default function ReportesClient() {
           if (includeDomains) sectionNum++;
           if (includeGaps) sectionNum++;
           if (includeRecommendations) sectionNum++;
-          sectionTitle(`${sectionNum}. Plan de Accion`);
+          sectionTitle(`${sectionNum}. Plan de Acción`);
 
           bodyText(
-            "El siguiente plan de accion prioriza las actividades de remediacion segun el nivel de riesgo y el impacto en la postura de ciberseguridad de la organizacion."
+            "El siguiente plan de acción prioriza las actividades de remediación según el nivel de riesgo y el impacto en la postura de ciberseguridad de la organización."
           );
           y += 6;
 
@@ -687,19 +687,19 @@ export default function ReportesClient() {
             color: [number, number, number];
           }> = [
             {
-              title: "Fase 1: Accion Inmediata (0-30 dias)",
-              timeframe: "Abordar dominios con riesgo critico",
+              title: "Fase 1: Acción Inmediata (0-30 días)",
+              timeframe: "Abordar dominios con riesgo crítico",
               domains: criticalDomains,
               color: [239, 68, 68],
             },
             {
-              title: "Fase 2: Corto Plazo (30-90 dias)",
+              title: "Fase 2: Corto Plazo (30-90 días)",
               timeframe: "Abordar dominios con riesgo alto",
               domains: highDomains,
               color: [249, 115, 22],
             },
             {
-              title: "Fase 3: Mediano Plazo (90-180 dias)",
+              title: "Fase 3: Mediano Plazo (90-180 días)",
               timeframe: "Mejorar dominios con riesgo medio",
               domains: mediumDomains,
               color: [234, 179, 8],
@@ -723,7 +723,7 @@ export default function ReportesClient() {
               doc.setFontSize(9);
               doc.setTextColor(71, 85, 105);
               doc.text(
-                "No hay dominios en esta categoria. Sin accion requerida.",
+                "No hay dominios en esta categoría. Sin acción requerida.",
                 marginLeft + 4,
                 y
               );
@@ -771,7 +771,7 @@ export default function ReportesClient() {
           checkSpace(20);
           boldText("Nota importante:");
           bodyText(
-            "Este plan de accion debe ser revisado y aprobado por la alta direccion. Se recomienda asignar responsables especificos para cada fase y realizar seguimiento semanal del avance de las actividades de remediacion. La proxima evaluacion completa debe realizarse dentro de los 12 meses siguientes."
+            "Este plan de acción debe ser revisado y aprobado por la alta dirección. Se recomienda asignar responsables específicos para cada fase y realizar seguimiento semanal del avance de las actividades de remediación. La próxima evaluación completa debe realizarse dentro de los 12 meses siguientes."
           );
         }
 
@@ -825,7 +825,7 @@ export default function ReportesClient() {
           Sin Datos para Reportar
         </h1>
         <p className="text-slate-500 max-w-md mb-8">
-          Complete la evaluacion primero para generar reportes. Necesita
+          Complete la evaluación primero para generar reportes. Necesita
           responder al menos un dominio CIP para generar un informe.
         </p>
         <Link
@@ -833,7 +833,7 @@ export default function ReportesClient() {
           className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/25"
         >
           <Target className="w-5 h-5" />
-          Iniciar Evaluacion
+          Iniciar Evaluación
         </Link>
       </div>
     );
@@ -859,10 +859,10 @@ export default function ReportesClient() {
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-black text-slate-900">
-            Generacion de Reportes
+            Generación de Reportes
           </h1>
           <p className="text-sm text-slate-500 mt-1">
-            Exporte su informe de autoevaluacion en PDF o respalde sus datos en
+            Exporte su informe de autoevaluación en PDF o respalde sus datos en
             JSON
           </p>
         </div>
@@ -1024,7 +1024,7 @@ export default function ReportesClient() {
                   icon: BarChart3,
                 },
                 {
-                  label: "Analisis por Dominio",
+                  label: "Análisis por Dominio",
                   desc: includeDomains ? "Incluido" : "Excluido",
                   included: includeDomains,
                   icon: ClipboardList,
@@ -1042,7 +1042,7 @@ export default function ReportesClient() {
                   icon: Lightbulb,
                 },
                 {
-                  label: "Plan de Accion",
+                  label: "Plan de Acción",
                   desc: includeActionPlan ? "Incluido" : "Excluido",
                   included: includeActionPlan,
                   icon: ListChecks,
@@ -1086,7 +1086,7 @@ export default function ReportesClient() {
               />
               <OptionCheckbox
                 checked={includeDomains}
-                label="Incluir analisis por dominio"
+                label="Incluir análisis por dominio"
                 icon={ClipboardList}
                 onToggle={() => setIncludeDomains((v) => !v)}
               />
@@ -1104,7 +1104,7 @@ export default function ReportesClient() {
               />
               <OptionCheckbox
                 checked={includeActionPlan}
-                label="Incluir plan de accion"
+                label="Incluir plan de acción"
                 icon={ListChecks}
                 onToggle={() => setIncludeActionPlan((v) => !v)}
               />
@@ -1162,7 +1162,7 @@ export default function ReportesClient() {
               className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-xl hover:bg-slate-50 transition-colors"
             >
               <FileDown className="w-4 h-4" />
-              Exportar Evaluacion (JSON)
+              Exportar Evaluación (JSON)
             </button>
           </div>
 
@@ -1172,10 +1172,10 @@ export default function ReportesClient() {
               Sobre el reporte
             </p>
             <p className="text-xs text-blue-700 leading-relaxed">
-              El reporte PDF generado incluye un analisis completo de la
-              evaluacion de ciberseguridad segun los estandares CIP del
-              Coordinador Electrico Nacional. El documento se marca como
-              confidencial y puede utilizarse para auditorias internas y
+              El reporte PDF generado incluye un análisis completo de la
+              evaluación de ciberseguridad según los estándares CIP del
+              Coordinador Eléctrico Nacional. El documento se marca como
+              confidencial y puede utilizarse para auditorías internas y
               reportes regulatorios.
             </p>
           </div>

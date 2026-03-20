@@ -9,11 +9,11 @@ export interface RiskThreshold {
 }
 
 export const riskThresholds: RiskThreshold[] = [
-  { min: 0, max: 20, level: 'critical', label: 'Critico', color: '#DC2626' },
+  { min: 0, max: 20, level: 'critical', label: 'Crítico', color: '#DC2626' },
   { min: 21, max: 40, level: 'high', label: 'Alto', color: '#EA580C' },
   { min: 41, max: 60, level: 'medium', label: 'Medio', color: '#CA8A04' },
   { min: 61, max: 80, level: 'low', label: 'Bajo', color: '#2563EB' },
-  { min: 81, max: 100, level: 'optimal', label: 'Optimo', color: '#16A34A' },
+  { min: 81, max: 100, level: 'optimal', label: 'Óptimo', color: '#16A34A' },
 ];
 
 export const cipWeights: Record<string, number> = {

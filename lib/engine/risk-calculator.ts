@@ -25,7 +25,7 @@ function getApplicableQuestions(
 }
 
 /**
- * Busca la respuesta para una pregunta especifica dentro del mapa de respuestas.
+ * Busca la respuesta para una pregunta específica dentro del mapa de respuestas.
  */
 function findAnswer(
   questionId: string,
@@ -113,8 +113,8 @@ export function calculateDomainResult(
 }
 
 /**
- * Calcula el puntaje global ponderado usando los pesos de cada estandar CIP.
- * Cada dominio contribuye proporcionalmente segun su peso (weight).
+ * Calcula el puntaje global ponderado usando los pesos de cada estándar CIP.
+ * Cada dominio contribuye proporcionalmente según su peso (weight).
  * Si la suma de pesos es 0, retorna 0.
  */
 export function calculateGlobalScore(
@@ -141,7 +141,7 @@ export function calculateGlobalScore(
 
 /**
  * Calcula los resultados de TODOS los dominios CIP disponibles.
- * Itera sobre todos los estandares y genera un DomainResult para cada uno.
+ * Itera sobre todos los estándares y genera un DomainResult para cada uno.
  */
 export function calculateAllDomains(
   answers: Record<string, Answer>,

@@ -13,11 +13,11 @@ const RISK_COLORS: Record<RiskLevel, { bg: string; text: string; border: string 
 };
 
 const RISK_LABEL: Record<RiskLevel, string> = {
-  critical: "Critico",
+  critical: "Crítico",
   high: "Alto",
   medium: "Medio",
   low: "Bajo",
-  optimal: "Optimo",
+  optimal: "Óptimo",
 };
 
 interface RiskHeatmapProps {

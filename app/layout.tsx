@@ -14,18 +14,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CyberCEN - Autoevaluacion de Ciberseguridad | TTPSEC",
+  title: "CyberCEN by TTPSEC SPA - Autoevaluación de Ciberseguridad",
   description:
-    "Herramienta de autoevaluacion de ciberseguridad para el sector electrico, basada en los estandares NERC CIP adaptados al Coordinador Electrico Nacional (CEN) de Chile. 12 dominios CIP, analisis de riesgo y plan de accion.",
+    "Herramienta de autoevaluación de ciberseguridad para el sector eléctrico, basada en los estándares NERC CIP adaptados al Coordinador Eléctrico Nacional (CEN) de Chile. 12 dominios CIP, análisis de riesgo y plan de acción.",
   keywords: [
     "ciberseguridad",
-    "sector electrico",
+    "sector eléctrico",
     "NERC CIP",
     "CEN",
-    "Coordinador Electrico Nacional",
-    "autoevaluacion",
+    "Coordinador Eléctrico Nacional",
+    "autoevaluación",
     "riesgo",
-    "infraestructura critica",
+    "infraestructura crítica",
     "TTPSEC",
     "Chile",
   ],
@@ -40,23 +40,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_CL",
     siteName: "CyberCEN by TTPSEC",
-    title: "CyberCEN - Autoevaluacion de Ciberseguridad | Sector Electrico Chile",
+    title: "CyberCEN by TTPSEC SPA - Autoevaluación de Ciberseguridad | Sector Eléctrico Chile",
     description:
-      "Evalua tu cumplimiento del Estandar de Ciberseguridad del CEN basado en NERC CIP. 12 dominios, 120 controles, analisis de riesgo y plan de accion.",
+      "Evalúa tu cumplimiento del Estándar de Ciberseguridad del CEN basado en NERC CIP. 12 dominios, 120 controles, análisis de riesgo y plan de acción.",
     images: [
       {
         url: "/og-image.svg",
         width: 1200,
         height: 630,
-        alt: "CyberCEN - Autoevaluacion de Ciberseguridad para el Sector Electrico",
+        alt: "CyberCEN - Autoevaluación de Ciberseguridad para el Sector Eléctrico",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CyberCEN - Autoevaluacion de Ciberseguridad",
+    title: "CyberCEN by TTPSEC SPA - Autoevaluación de Ciberseguridad",
     description:
-      "Evalua tu cumplimiento del Estandar de Ciberseguridad del CEN. 12 dominios NERC CIP, analisis de riesgo y recomendaciones.",
+      "Evalúa tu cumplimiento del Estándar de Ciberseguridad del CEN. 12 dominios NERC CIP, análisis de riesgo y recomendaciones.",
     images: ["/og-twitter.svg"],
     creator: "@ttpsec",
   },

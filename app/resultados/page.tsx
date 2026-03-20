@@ -169,7 +169,7 @@ export default function ResultadosPage() {
           Sin Resultados Disponibles
         </h1>
         <p className="text-slate-500 max-w-md mb-8">
-          Complete la evaluacion para ver los resultados del analisis de riesgo,
+          Complete la evaluación para ver los resultados del análisis de riesgo,
           brechas y recomendaciones.
         </p>
         <Link
@@ -177,7 +177,7 @@ export default function ResultadosPage() {
           className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/25"
         >
           <Target className="w-5 h-5" />
-          Iniciar Evaluacion
+          Iniciar Evaluación
         </Link>
       </div>
     );
@@ -199,7 +199,7 @@ export default function ResultadosPage() {
       bg: "bg-indigo-50 border-indigo-100",
     },
     {
-      label: "Dominios Criticos",
+      label: "Dominios Críticos",
       value: criticalDomains,
       icon: AlertTriangle,
       color: "text-red-600",
@@ -220,7 +220,7 @@ export default function ResultadosPage() {
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-black text-slate-900">
-            Resultados de la Evaluacion
+            Resultados de la Evaluación
           </h1>
           <p className="text-sm text-slate-500 mt-1">
             {evaluation?.entityName} &mdash;{" "}
@@ -344,7 +344,7 @@ export default function ResultadosPage() {
             Puntaje por Dominio
           </h3>
           <p className="text-sm text-slate-500 mb-4">
-            Cumplimiento individual de cada estandar CIP
+            Cumplimiento individual de cada estándar CIP
           </p>
           <ResponsiveContainer width="100%" height={380}>
             <BarChart

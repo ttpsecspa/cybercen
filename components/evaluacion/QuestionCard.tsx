@@ -20,7 +20,7 @@ const answerOptions: {
 }[] = [
   {
     value: "yes",
-    label: "Si",
+    label: "Sí",
     icon: CheckCircle,
     activeClasses:
       "bg-green-50 border-green-500 ring-2 ring-green-300 text-green-700",

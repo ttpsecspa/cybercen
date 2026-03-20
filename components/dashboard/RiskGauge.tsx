@@ -7,11 +7,11 @@ const RISK_CONFIG: Record<
   RiskLevel,
   { color: string; gradientEnd: string; label: string }
 > = {
-  critical: { color: "#EF4444", gradientEnd: "#991B1B", label: "CRITICO" },
+  critical: { color: "#EF4444", gradientEnd: "#991B1B", label: "CRÍTICO" },
   high: { color: "#F97316", gradientEnd: "#C2410C", label: "ALTO" },
   medium: { color: "#EAB308", gradientEnd: "#A16207", label: "MEDIO" },
   low: { color: "#3B82F6", gradientEnd: "#1D4ED8", label: "BAJO" },
-  optimal: { color: "#22C55E", gradientEnd: "#15803D", label: "OPTIMO" },
+  optimal: { color: "#22C55E", gradientEnd: "#15803D", label: "ÓPTIMO" },
 };
 
 interface RiskGaugeProps {

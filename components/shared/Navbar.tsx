@@ -25,6 +25,9 @@ export function Navbar({ globalProgress }: NavbarProps) {
             <span className="text-lg font-bold tracking-wide leading-tight">
               CyberCEN
             </span>
+            <span className="text-[10px] text-slate-400 leading-tight hidden sm:block">
+              by TTPSEC SPA
+            </span>
             <span className="text-xs text-slate-400 leading-tight hidden sm:block">
               Autoevaluación de Ciberseguridad — Sector Eléctrico
             </span>

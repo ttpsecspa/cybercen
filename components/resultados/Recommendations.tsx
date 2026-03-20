@@ -138,7 +138,7 @@ export function Recommendations({ domainResults }: RecommendationsProps) {
         </h3>
         <p className="text-sm text-slate-500 mt-0.5">
           {filteredRecommendations.length} recomendaciones basadas en los
-          resultados de la evaluacion
+          resultados de la evaluación
         </p>
       </div>
 
@@ -146,7 +146,7 @@ export function Recommendations({ domainResults }: RecommendationsProps) {
         <div className="py-12 text-center text-slate-400">
           <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-40" />
           <p className="text-sm">
-            No hay recomendaciones aplicables. Complete la evaluacion para
+            No hay recomendaciones aplicables. Complete la evaluación para
             generar recomendaciones.
           </p>
         </div>

@@ -235,7 +235,7 @@ export function RiskMatrix({ domainResults }: RiskMatrixProps) {
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded-sm bg-red-600" />
-            <span className="text-xs text-slate-600">Riesgo Critico</span>
+            <span className="text-xs text-slate-600">Riesgo Crítico</span>
           </div>
         </div>
       </div>

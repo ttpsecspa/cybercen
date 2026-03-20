@@ -23,7 +23,7 @@ export interface DomainSummary {
 }
 
 /**
- * Informacion de la entidad evaluada.
+ * Información de la entidad evaluada.
  */
 export interface EntityInfo {
   name: string;
@@ -63,19 +63,19 @@ export interface ReportData {
 }
 
 /**
- * Traduce el tipo de entidad al espanol.
+ * Traduce el tipo de entidad al español.
  */
 function translateEntityType(type: string): string {
   const types: Record<string, string> = {
-    generation: 'Generacion',
-    transmission: 'Transmision',
-    distribution: 'Distribucion',
+    generation: 'Generación',
+    transmission: 'Transmisión',
+    distribution: 'Distribución',
   };
   return types[type] || type;
 }
 
 /**
- * Traduce el nivel de impacto al espanol.
+ * Traduce el nivel de impacto al español.
  */
 function translateImpactLevel(level: string): string {
   const levels: Record<string, string> = {
@@ -99,11 +99,11 @@ function generateOverviewText(
 ): string {
   const riskLabel = getRiskLabel(riskLevel);
 
-  let overview = `La evaluacion de ciberseguridad de ${entityName} arroja un puntaje global de ${globalScore.toFixed(1)}%, `;
+  let overview = `La evaluación de ciberseguridad de ${entityName} arroja un puntaje global de ${globalScore.toFixed(1)}%, `;
   overview += `correspondiente a un nivel de riesgo ${riskLabel}. `;
 
   if (criticalDomains > 0) {
-    overview += `Se identificaron ${criticalDomains} dominio(s) en estado critico que requieren atencion inmediata. `;
+    overview += `Se identificaron ${criticalDomains} dominio(s) en estado crítico que requieren atención inmediata. `;
   }
 
   overview += `Del total de ${totalDomains} dominios evaluados, se detectaron ${gapSummary.totalGaps} brecha(s) de cumplimiento. `;
@@ -113,7 +113,7 @@ function generateOverviewText(
 }
 
 /**
- * Genera la recomendacion principal basada en el estado general.
+ * Genera la recomendación principal basada en el estado general.
  */
 function generateMainRecommendation(
   riskLevel: RiskLevel,
@@ -121,38 +121,38 @@ function generateMainRecommendation(
   gapSummary: GapSummary
 ): string {
   if (riskLevel === 'critical' || criticalDomains > 0) {
-    return `Se requiere accion inmediata para abordar las ${gapSummary.criticalGaps} brecha(s) criticas identificadas. ` +
-      `Se recomienda establecer un comite de emergencia de ciberseguridad y desarrollar un plan de remediacion ` +
-      `con plazos no superiores a 30 dias para los hallazgos criticos.`;
+    return `Se requiere acción inmediata para abordar las ${gapSummary.criticalGaps} brecha(s) críticas identificadas. ` +
+      `Se recomienda establecer un comité de emergencia de ciberseguridad y desarrollar un plan de remediación ` +
+      `con plazos no superiores a 30 días para los hallazgos críticos.`;
   }
 
   if (riskLevel === 'high') {
     return `Se recomienda desarrollar un plan correctivo urgente para abordar las ${gapSummary.highGaps} brecha(s) de alto riesgo. ` +
-      `Priorizar la asignacion de recursos para la implementacion de controles de seguridad faltantes ` +
-      `dentro de los proximos 60 dias.`;
+      `Priorizar la asignación de recursos para la implementación de controles de seguridad faltantes ` +
+      `dentro de los próximos 60 días.`;
   }
 
   if (riskLevel === 'medium') {
     return `Se recomienda elaborar un plan de mejoras programadas para abordar las brechas identificadas. ` +
-      `Establecer un cronograma de implementacion trimestral y asegurar el seguimiento continuo ` +
+      `Establecer un cronograma de implementación trimestral y asegurar el seguimiento continuo ` +
       `de los avances en cada dominio.`;
   }
 
   if (riskLevel === 'low') {
     return `El nivel de cumplimiento es satisfactorio. Se recomienda mantener el programa de mejora continua, ` +
-      `enfocandose en la optimizacion de los controles existentes y la actualizacion periodica ` +
-      `de las politicas de ciberseguridad.`;
+      `enfocándose en la optimización de los controles existentes y la actualización periódica ` +
+      `de las políticas de ciberseguridad.`;
   }
 
-  return `Excelente nivel de cumplimiento. Se recomienda mantener las practicas actuales, ` +
-    `realizar auditorias periodicas y mantenerse actualizado respecto a nuevas amenazas ` +
-    `y actualizaciones normativas del sector electrico.`;
+  return `Excelente nivel de cumplimiento. Se recomienda mantener las prácticas actuales, ` +
+    `realizar auditorías periódicas y mantenerse actualizado respecto a nuevas amenazas ` +
+    `y actualizaciones normativas del sector eléctrico.`;
 }
 
 /**
- * Genera los datos completos del reporte de evaluacion de ciberseguridad.
+ * Genera los datos completos del reporte de evaluación de ciberseguridad.
  *
- * @param evaluation - Estado de la evaluacion actual
+ * @param evaluation - Estado de la evaluación actual
  * @param domainResults - Resultados calculados por dominio
  * @param globalScore - Puntaje global ponderado (0-100)
  * @param recommendations - Lista de recomendaciones generadas
@@ -192,7 +192,7 @@ export function generateReportData(
     };
   });
 
-  // Informacion de la entidad
+  // Información de la entidad
   const entityInfo: EntityInfo = {
     name: evaluation.entityName,
     type: translateEntityType(evaluation.entityType),
@@ -201,7 +201,7 @@ export function generateReportData(
 
   // Resumen ejecutivo
   const executiveSummary: ExecutiveSummary = {
-    title: `Reporte de Evaluacion de Ciberseguridad - ${evaluation.entityName}`,
+    title: `Reporte de Evaluación de Ciberseguridad - ${evaluation.entityName}`,
     overview: generateOverviewText(
       evaluation.entityName,
       globalScore,

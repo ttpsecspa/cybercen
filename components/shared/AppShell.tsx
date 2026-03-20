@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
+import { Breadcrumbs } from "./Breadcrumbs";
+import { Footer } from "./Footer";
 import { useEvaluationStore } from "@/lib/store/evaluation-store";
 
 const CIP_IDS = [
@@ -86,8 +88,10 @@ export function AppShell({ children }: AppShellProps) {
       <Navbar globalProgress={globalProgress} />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar activePath={pathname} domainStatuses={domainStatuses} />
-        <main className="flex-1 overflow-y-auto bg-slate-50 p-4 sm:p-6 lg:p-8">
-          {children}
+        <main className="flex-1 overflow-y-auto bg-slate-50 p-4 sm:p-6 lg:p-8 flex flex-col">
+          <Breadcrumbs />
+          <div className="flex-1">{children}</div>
+          <Footer />
         </main>
       </div>
     </div>
