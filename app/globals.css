@@ -10,6 +10,13 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Risk level colors for CyberCEN */
+  --color-critical: #EF4444;
+  --color-high: #F97316;
+  --color-medium: #EAB308;
+  --color-low: #3B82F6;
+  --color-optimal: #22C55E;
 }
 
 @media (prefers-color-scheme: dark) {
