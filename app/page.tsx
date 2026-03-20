@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   AlertTriangle,
   ListChecks,
+  RotateCcw,
 } from "lucide-react";
 import { useEvaluationStore } from "@/lib/store/evaluation-store";
 import { cipStandards } from "@/lib/data/cip-standards";
@@ -224,6 +225,8 @@ function DashboardScreen() {
   const domainResults = useEvaluationStore((s) => s.domainResults);
   const globalScore = useEvaluationStore((s) => s.globalScore);
   const globalRiskLevel = useEvaluationStore((s) => s.globalRiskLevel);
+  const resetEvaluation = useEvaluationStore((s) => s.resetEvaluation);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   const stats = useMemo(() => {
     const totalQuestions = domainResults.reduce(
@@ -257,24 +260,67 @@ function DashboardScreen() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-extrabold text-slate-900">
-          Panel de Control
-        </h1>
-        <p className="text-sm text-slate-500 mt-1">
-          Evaluación de {evaluation.entityName} &middot;{" "}
-          {evaluation.entityType === "generation"
-            ? "Generación"
-            : evaluation.entityType === "transmission"
-              ? "Transmisión"
-              : "Distribución"}{" "}
-          &middot; Impacto{" "}
-          {evaluation.impactLevel === "high"
-            ? "Alto"
-            : evaluation.impactLevel === "medium"
-              ? "Medio"
-              : "Bajo"}
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-extrabold text-slate-900">
+            Panel de Control
+          </h1>
+          <p className="text-sm text-slate-500 mt-1">
+            Evaluación de {evaluation.entityName} &middot;{" "}
+            {evaluation.entityType === "generation"
+              ? "Generación"
+              : evaluation.entityType === "transmission"
+                ? "Transmisión"
+                : "Distribución"}{" "}
+            &middot; Impacto{" "}
+            {evaluation.impactLevel === "high"
+              ? "Alto"
+              : evaluation.impactLevel === "medium"
+                ? "Medio"
+                : "Bajo"}
+          </p>
+        </div>
+
+        {/* Reset button */}
+        <div className="relative">
+          {!showResetConfirm ? (
+            <button
+              type="button"
+              onClick={() => setShowResetConfirm(true)}
+              className={cn(
+                "flex items-center gap-2 rounded-lg border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600",
+                "hover:bg-red-50 hover:border-red-300 transition-colors"
+              )}
+            >
+              <RotateCcw className="w-4 h-4" />
+              Reiniciar Progreso
+            </button>
+          ) : (
+            <div className="flex items-center gap-2 rounded-xl border border-red-300 bg-red-50 px-4 py-2.5 shadow-lg">
+              <AlertTriangle className="w-4 h-4 text-red-500 shrink-0" />
+              <span className="text-sm text-red-700 font-medium whitespace-nowrap">
+                ¿Eliminar todo?
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  resetEvaluation();
+                  setShowResetConfirm(false);
+                }}
+                className="rounded-lg bg-red-600 px-3 py-1 text-xs font-bold text-white hover:bg-red-700 transition-colors"
+              >
+                Sí, reiniciar
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowResetConfirm(false)}
+                className="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors"
+              >
+                Cancelar
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Top stats row */}
