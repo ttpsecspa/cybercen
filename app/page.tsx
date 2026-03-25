@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import {
   Shield,
+  ShieldCheck,
   Zap,
   Building2,
   ChevronRight,
@@ -12,6 +13,10 @@ import {
   AlertTriangle,
   ListChecks,
   RotateCcw,
+  Lock,
+  Eye,
+  UserX,
+  Info,
 } from "lucide-react";
 import { useEvaluationStore } from "@/lib/store/evaluation-store";
 import { cipStandards } from "@/lib/data/cip-standards";
@@ -69,6 +74,7 @@ function WelcomeScreen() {
             type="text"
             value={entityName}
             onChange={(e) => setEntityName(e.target.value)}
+            maxLength={100}
             placeholder="Ej: Empresa Eléctrica del Norte S.A."
             className={cn(
               "w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-800",
@@ -213,6 +219,46 @@ function WelcomeScreen() {
             <span className="text-xs text-slate-400 mt-1">{feat.desc}</span>
           </div>
         ))}
+      </div>
+
+      {/* Disclaimer */}
+      <div className="w-full max-w-2xl mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-5">
+        <div className="flex items-start gap-3 mb-3">
+          <Info className="w-5 h-5 text-blue-500 mt-0.5 shrink-0" />
+          <p className="text-xs font-semibold text-blue-800 uppercase tracking-wide">
+            Aviso Legal y Privacidad
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 ml-8">
+          <div className="flex items-start gap-2">
+            <ShieldCheck className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
+            <p className="text-xs text-slate-600 leading-relaxed">
+              <span className="font-semibold text-slate-700">No es asesoría profesional.</span>{" "}
+              Esta herramienta es solo orientativa y no reemplaza una auditoría formal de ciberseguridad.
+            </p>
+          </div>
+          <div className="flex items-start gap-2">
+            <Lock className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
+            <p className="text-xs text-slate-600 leading-relaxed">
+              <span className="font-semibold text-slate-700">100% privada.</span>{" "}
+              Todos los datos se procesan localmente en su navegador. Nada se envía a servidores externos.
+            </p>
+          </div>
+          <div className="flex items-start gap-2">
+            <UserX className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
+            <p className="text-xs text-slate-600 leading-relaxed">
+              <span className="font-semibold text-slate-700">Sin registro ni login.</span>{" "}
+              No recopilamos datos personales, correos ni credenciales de ningún tipo.
+            </p>
+          </div>
+          <div className="flex items-start gap-2">
+            <Eye className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
+            <p className="text-xs text-slate-600 leading-relaxed">
+              <span className="font-semibold text-slate-700">Sin tracking ni cookies.</span>{" "}
+              No usamos analytics, cookies de terceros ni rastreadores. Su información queda en su equipo.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
