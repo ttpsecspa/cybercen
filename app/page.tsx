@@ -31,13 +31,11 @@ import { RiskHeatmap } from "@/components/dashboard/RiskHeatmap";
 
 function WelcomeScreen() {
   const startEvaluation = useEvaluationStore((s) => s.startEvaluation);
-  const [entityName, setEntityName] = useState("");
   const [entityType, setEntityType] = useState<EntityType>("generation");
   const [impactLevel, setImpactLevel] = useState<ImpactLevel>("medium");
 
   const handleStart = () => {
-    if (!entityName.trim()) return;
-    startEvaluation(entityName.trim(), entityType, impactLevel);
+    startEvaluation("Evaluación Anónima", entityType, impactLevel);
   };
 
   return (
@@ -65,25 +63,7 @@ function WelcomeScreen() {
           Configurar Evaluación
         </h2>
 
-        {/* Entity name */}
-        <div className="mb-5">
-          <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-            Nombre de la Entidad
-          </label>
-          <input
-            type="text"
-            value={entityName}
-            onChange={(e) => setEntityName(e.target.value)}
-            maxLength={100}
-            placeholder="Ej: Empresa Eléctrica del Norte S.A."
-            className={cn(
-              "w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-800",
-              "placeholder:text-slate-400",
-              "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
-              "transition-colors"
-            )}
-          />
-        </div>
+        {/* Entity name removed - anonymous evaluation */}
 
         {/* Entity type */}
         <div className="mb-5">
@@ -175,7 +155,6 @@ function WelcomeScreen() {
         <button
           type="button"
           onClick={handleStart}
-          disabled={!entityName.trim()}
           className={cn(
             "w-full flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-bold text-white",
             "bg-gradient-to-r from-blue-600 to-cyan-500 shadow-lg shadow-blue-500/25",
