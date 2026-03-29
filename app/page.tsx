@@ -17,6 +17,9 @@ import {
   Eye,
   UserX,
   Info,
+  GraduationCap,
+  Ban,
+  Wifi,
 } from "lucide-react";
 import { useEvaluationStore } from "@/lib/store/evaluation-store";
 import { cipStandards } from "@/lib/data/cip-standards";
@@ -200,41 +203,81 @@ function WelcomeScreen() {
         ))}
       </div>
 
-      {/* Disclaimer */}
-      <div className="w-full max-w-2xl mt-8 rounded-xl border border-blue-100 bg-blue-50/50 p-5">
-        <div className="flex items-start gap-3 mb-3">
-          <Info className="w-5 h-5 text-blue-500 mt-0.5 shrink-0" />
-          <p className="text-xs font-semibold text-blue-800 uppercase tracking-wide">
-            Aviso Legal y Privacidad
-          </p>
+      {/* Big Disclaimer Banner */}
+      <div className="w-full max-w-2xl mt-10 rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-50 p-6 shadow-lg shadow-amber-100/50">
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <AlertTriangle className="w-7 h-7 text-amber-600" />
+          <h3 className="text-lg font-extrabold text-amber-900 uppercase tracking-wider">
+            Aviso Importante
+          </h3>
+          <AlertTriangle className="w-7 h-7 text-amber-600" />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 ml-8">
-          <div className="flex items-start gap-2">
-            <ShieldCheck className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
-            <p className="text-xs text-slate-600 leading-relaxed">
-              <span className="font-semibold text-slate-700">No es asesoría profesional.</span>{" "}
-              Esta herramienta es solo orientativa y no reemplaza una auditoría formal de ciberseguridad.
+
+        <div className="rounded-xl bg-white/70 border border-amber-200 p-5 mb-4">
+          <div className="flex items-start gap-3 mb-3">
+            <GraduationCap className="w-6 h-6 text-amber-600 mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-bold text-slate-800">
+                Plataforma sin fines de lucro, con fines exclusivamente académicos y educativos.
+              </p>
+              <p className="text-xs text-slate-500 mt-1">
+                Esta herramienta ofrece un autodiagnóstico orientativo del nivel de madurez en ciberseguridad basado en estándares NERC CIP. No constituye asesoría profesional, legal ni técnica vinculante.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3 mb-3">
+            <Ban className="w-6 h-6 text-red-500 mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-bold text-slate-800">
+                No afiliada al Coordinador Eléctrico Nacional (CEN).
+              </p>
+              <p className="text-xs text-slate-500 mt-1">
+                Esta plataforma es un desarrollo independiente. No tiene vinculación, respaldo ni asociación de ningún tipo con el Coordinador Eléctrico Nacional de Chile ni con ninguna entidad gubernamental o regulatoria.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3">
+            <ShieldCheck className="w-6 h-6 text-green-500 mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-bold text-slate-800">
+                No reemplaza una auditoría formal de ciberseguridad.
+              </p>
+              <p className="text-xs text-slate-500 mt-1">
+                Los resultados son referenciales. Para cumplimiento regulatorio, consulte con profesionales certificados en seguridad de la información.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="flex items-center gap-2 rounded-lg bg-white/60 border border-slate-200 px-3 py-2.5">
+            <Lock className="w-5 h-5 text-blue-500 shrink-0" />
+            <p className="text-xs text-slate-600">
+              <span className="font-bold text-slate-700">100% privada.</span>{" "}
+              Todo se procesa en su navegador. Nada se envía a servidores externos.
             </p>
           </div>
-          <div className="flex items-start gap-2">
-            <Lock className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
-            <p className="text-xs text-slate-600 leading-relaxed">
-              <span className="font-semibold text-slate-700">100% privada.</span>{" "}
-              Todos los datos se procesan localmente en su navegador. Nada se envía a servidores externos.
+          <div className="flex items-center gap-2 rounded-lg bg-white/60 border border-slate-200 px-3 py-2.5">
+            <UserX className="w-5 h-5 text-blue-500 shrink-0" />
+            <p className="text-xs text-slate-600">
+              <span className="font-bold text-slate-700">Sin registro ni login.</span>{" "}
+              No recopilamos datos personales ni credenciales.
             </p>
           </div>
-          <div className="flex items-start gap-2">
-            <UserX className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
-            <p className="text-xs text-slate-600 leading-relaxed">
-              <span className="font-semibold text-slate-700">Sin registro ni login.</span>{" "}
-              No recopilamos datos personales, correos ni credenciales de ningún tipo.
+          <div className="flex items-center gap-2 rounded-lg bg-white/60 border border-slate-200 px-3 py-2.5">
+            <Eye className="w-5 h-5 text-blue-500 shrink-0" />
+            <p className="text-xs text-slate-600">
+              <span className="font-bold text-slate-700">Sin tracking ni cookies.</span>{" "}
+              No usamos analytics ni rastreadores de ningún tipo.
             </p>
           </div>
-          <div className="flex items-start gap-2">
-            <Eye className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
-            <p className="text-xs text-slate-600 leading-relaxed">
-              <span className="font-semibold text-slate-700">Sin tracking ni cookies.</span>{" "}
-              No usamos analytics, cookies de terceros ni rastreadores. Su información queda en su equipo.
+          <div className="flex items-center gap-2 rounded-lg bg-white/60 border border-slate-200 px-3 py-2.5">
+            <Wifi className="w-5 h-5 text-blue-500 shrink-0" />
+            <p className="text-xs text-slate-600">
+              <span className="font-bold text-slate-700">Funciona sin conexión.</span>{" "}
+              Una vez cargada, puede usarse completamente offline.
             </p>
           </div>
         </div>
