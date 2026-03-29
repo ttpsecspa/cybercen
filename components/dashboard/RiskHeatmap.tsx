@@ -29,7 +29,7 @@ export function RiskHeatmap({ domainResults, standards }: RiskHeatmapProps) {
   const [hoveredCip, setHoveredCip] = useState<string | null>(null);
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
       <h2 className="text-lg font-bold text-slate-800 mb-1">
         Mapa de Calor de Riesgos
       </h2>

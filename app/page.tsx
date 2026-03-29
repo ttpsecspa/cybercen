@@ -45,24 +45,24 @@ function WelcomeScreen() {
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-4">
       {/* Hero */}
       <div className="w-full max-w-2xl text-center mb-10">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 shadow-lg shadow-blue-500/25 mb-6">
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-500 shadow-lg shadow-blue-200 mb-6">
           <Shield className="w-10 h-10 text-white" />
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
           Bienvenido a{" "}
-          <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
             CyberCEN
           </span>
         </h1>
-        <p className="mt-4 text-lg text-slate-500 max-w-lg mx-auto leading-relaxed">
+        <p className="mt-4 text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
           Herramienta de autoevaluación del Estándar de Ciberseguridad del
           Coordinador Eléctrico Nacional
         </p>
       </div>
 
       {/* Form card */}
-      <div className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/50 p-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-6">
+      <div className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white shadow-md p-6">
+        <h2 className="text-xl font-extrabold text-slate-900 mb-6">
           Configurar Evaluación
         </h2>
 
@@ -159,11 +159,10 @@ function WelcomeScreen() {
           type="button"
           onClick={handleStart}
           className={cn(
-            "w-full flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-bold text-white",
-            "bg-gradient-to-r from-blue-600 to-cyan-500 shadow-lg shadow-blue-500/25",
-            "hover:shadow-xl hover:shadow-blue-500/30 hover:-translate-y-0.5",
-            "transition-all duration-200",
-            "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-lg"
+            "w-full flex items-center justify-center gap-2 rounded-xl px-8 py-3.5 text-base font-bold text-white cursor-pointer",
+            "bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200",
+            "hover:-translate-y-0.5",
+            "transition-all duration-200"
           )}
         >
           Iniciar Evaluación
@@ -192,13 +191,13 @@ function WelcomeScreen() {
         ].map((feat) => (
           <div
             key={feat.title}
-            className="flex flex-col items-center text-center rounded-xl border border-slate-100 bg-white/60 p-4"
+            className="flex flex-col items-center text-center rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-blue-300 hover:-translate-y-0.5 transition-all"
           >
-            <feat.icon className="w-6 h-6 text-blue-500 mb-2" />
-            <span className="text-sm font-semibold text-slate-700">
+            <feat.icon className="w-6 h-6 text-blue-500 mb-3" />
+            <span className="text-sm font-bold text-slate-900">
               {feat.title}
             </span>
-            <span className="text-xs text-slate-400 mt-1">{feat.desc}</span>
+            <span className="text-xs text-slate-500 leading-relaxed mt-1.5">{feat.desc}</span>
           </div>
         ))}
       </div>
@@ -330,7 +329,7 @@ function DashboardScreen() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900">
+          <h1 className="text-2xl md:text-3xl font-black text-slate-900">
             Panel de Control
           </h1>
           <p className="text-sm text-slate-500 mt-1">
@@ -430,7 +429,7 @@ function DashboardScreen() {
 
       {/* Domain cards grid */}
       <div>
-        <h2 className="text-lg font-bold text-slate-800 mb-4">
+        <h2 className="text-xl font-extrabold text-slate-900 mb-4">
           Dominios CIP
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -515,7 +514,7 @@ function StatCard({
   };
 
   return (
-    <div className="flex flex-col justify-center rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="flex flex-col justify-center rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
       <div className="flex items-center gap-3 mb-3">
         <div
           className={cn(

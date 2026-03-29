@@ -14,30 +14,40 @@ export function Navbar({ globalProgress }: NavbarProps) {
   const strokeDashoffset = circumference - (clampedProgress / 100) * circumference;
 
   return (
-    <header className="bg-slate-900 text-white shadow-lg z-50 relative">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
       <div className="flex items-center justify-between px-4 py-3 sm:px-6">
         {/* Logo y marca */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-600">
+          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-500 shadow-sm shadow-blue-200">
             <Shield className="w-6 h-6 text-white" />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-bold tracking-wide leading-tight">
+            <span className="text-lg font-black text-blue-900 tracking-tight leading-tight">
               CyberCEN
             </span>
-            <span className="text-[10px] text-slate-400 leading-tight hidden sm:block">
+            <span className="text-[11px] text-slate-500 font-medium leading-tight hidden sm:block">
               by TTPSEC SPA
-            </span>
-            <span className="text-xs text-slate-400 leading-tight hidden sm:block">
-              Autoevaluación de Ciberseguridad — Sector Eléctrico
             </span>
           </div>
         </div>
 
+        {/* Status badges */}
+        <div className="hidden md:flex items-center gap-2">
+          <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            Anónimo
+          </span>
+          <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+            Seguro
+          </span>
+          <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
+            Sin Rastreo
+          </span>
+        </div>
+
         {/* Indicador de progreso global */}
         <div className="flex items-center gap-3">
-          <span className="text-xs text-slate-400 hidden sm:block">
-            Progreso Global
+          <span className="text-xs text-slate-500 font-medium hidden sm:block">
+            Progreso
           </span>
           <div className="relative flex items-center justify-center w-11 h-11">
             <svg
@@ -52,7 +62,7 @@ export function Navbar({ globalProgress }: NavbarProps) {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="3"
-                className="text-slate-700"
+                className="text-slate-200"
               />
               <circle
                 cx="20"
@@ -67,16 +77,16 @@ export function Navbar({ globalProgress }: NavbarProps) {
                 className={cn(
                   "transition-all duration-500 ease-out",
                   clampedProgress >= 80
-                    ? "text-optimal"
+                    ? "text-emerald-500"
                     : clampedProgress >= 50
-                      ? "text-medium"
+                      ? "text-blue-500"
                       : clampedProgress > 0
-                        ? "text-high"
-                        : "text-slate-600"
+                        ? "text-amber-500"
+                        : "text-slate-300"
                 )}
               />
             </svg>
-            <span className="absolute text-[10px] font-semibold text-white">
+            <span className="absolute text-[10px] font-bold text-slate-700">
               {clampedProgress}%
             </span>
           </div>

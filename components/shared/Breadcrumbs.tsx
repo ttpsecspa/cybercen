@@ -72,7 +72,7 @@ export function Breadcrumbs({ className }: BreadcrumbsProps) {
             ) : (
               <Link
                 href={item.href}
-                className="flex items-center gap-1 text-slate-500 transition-colors hover:text-indigo-600"
+                className="flex items-center gap-1 text-slate-500 transition-colors hover:text-blue-600"
               >
                 {index === 0 && <Home className="h-3.5 w-3.5" />}
                 {item.label}

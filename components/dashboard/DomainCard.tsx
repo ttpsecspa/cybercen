@@ -57,9 +57,9 @@ export function DomainCard({
     <Link
       href={`/evaluacion/${cipId}`}
       className={cn(
-        "group relative flex flex-col gap-3 rounded-xl border-2 bg-white p-5 shadow-sm",
-        "transition-all duration-200 hover:shadow-md hover:-translate-y-0.5",
-        borderClass
+        "group relative flex flex-col gap-3 rounded-2xl border bg-white p-6 shadow-sm",
+        "transition-all duration-200 hover:shadow-md hover:border-blue-300 hover:-translate-y-0.5",
+        isNotStarted ? "border-slate-200" : isComplete ? "border-emerald-200" : isAtRisk ? "border-red-200" : "border-blue-200"
       )}
     >
       {/* Header row */}

@@ -64,9 +64,9 @@ export function QuestionCard({ question, answer, onAnswer }: QuestionCardProps) 
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 transition-shadow hover:shadow-md">
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 transition-all hover:shadow-md hover:border-blue-300">
       <div className="flex items-start gap-3 mb-4">
-        <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-700 text-xs font-semibold uppercase tracking-wide shrink-0">
+        <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 text-xs font-semibold uppercase tracking-wide shrink-0">
           {question.requirementId}
         </span>
         <div className="flex-1 min-w-0">
@@ -119,7 +119,7 @@ export function QuestionCard({ question, answer, onAnswer }: QuestionCardProps) 
             onChange={(e) => handleObservationChange(e.target.value)}
             placeholder="Agregue observaciones o evidencia relevante..."
             rows={3}
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none transition-colors resize-y"
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-colors resize-y"
           />
         </div>
       )}

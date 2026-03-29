@@ -163,7 +163,7 @@ export function Sidebar({ activePath, domainStatuses }: SidebarProps) {
       <button
         type="button"
         onClick={() => setMobileOpen(!mobileOpen)}
-        className="fixed top-3 right-4 z-[60] p-2 rounded-md bg-slate-800 text-slate-300 hover:text-white sm:hidden"
+        className="fixed top-3 right-4 z-[60] p-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 shadow-sm sm:hidden"
         aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
       >
         {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

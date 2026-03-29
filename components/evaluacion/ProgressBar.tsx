@@ -20,11 +20,11 @@ export function ProgressBar({ current, total }: ProgressBarProps) {
           {percentage}%
         </span>
       </div>
-      <div className="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
+      <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
         <div
           className={cn(
             "h-full rounded-full transition-all duration-500 ease-out",
-            "bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600"
+            "bg-gradient-to-r from-blue-600 to-indigo-500"
           )}
           style={{ width: `${percentage}%` }}
         />
