@@ -71,8 +71,8 @@
   <rect x="90" y="260" width="1020" height="1" fill="#e2e8f0"/>
 
   <!-- Main description -->
-  <text x="90" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="30" fill="#0f172a" font-weight="700">Autoevaluacion de Ciberseguridad</text>
-  <text x="90" y="350" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#475569">Estandar del Coordinador Electrico Nacional | Sector Electrico de Chile</text>
+  <text x="90" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="30" fill="#0f172a" font-weight="700">Autoevaluación de Ciberseguridad</text>
+  <text x="90" y="350" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#475569">Estándar del Coordinador Eléctrico Nacional | Sector Eléctrico de Chile</text>
 
   <!-- Feature cards row -->
   <g transform="translate(90, 390)">
@@ -89,7 +89,7 @@
     <rect x="260" y="0" width="240" height="90" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
     <circle cx="296" cy="45" r="18" fill="#ecfdf5"/>
     <text x="296" y="52" font-family="system-ui, sans-serif" font-size="20" fill="#059669" text-anchor="middle">&#9650;</text>
-    <text x="326" y="38" font-family="system-ui, sans-serif" font-size="15" fill="#0f172a" font-weight="700">Analisis de Riesgo</text>
+    <text x="326" y="38" font-family="system-ui, sans-serif" font-size="15" fill="#0f172a" font-weight="700">Análisis de Riesgo</text>
     <text x="326" y="58" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">Nivel de madurez y brechas</text>
 
     <!-- Card 3 -->
@@ -97,7 +97,7 @@
     <rect x="520" y="0" width="240" height="90" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
     <circle cx="556" cy="45" r="18" fill="#fffbeb"/>
     <text x="556" y="52" font-family="system-ui, sans-serif" font-size="20" fill="#d97706" text-anchor="middle">&#9733;</text>
-    <text x="586" y="38" font-family="system-ui, sans-serif" font-size="15" fill="#0f172a" font-weight="700">Plan de Accion</text>
+    <text x="586" y="38" font-family="system-ui, sans-serif" font-size="15" fill="#0f172a" font-weight="700">Plan de Acción</text>
     <text x="586" y="58" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">Recomendaciones priorizadas</text>
 
     <!-- Card 4 -->
@@ -106,13 +106,13 @@
     <circle cx="816" cy="45" r="18" fill="#fef2f2"/>
     <text x="816" y="52" font-family="system-ui, sans-serif" font-size="18" fill="#dc2626" text-anchor="middle">&#8595;</text>
     <text x="846" y="38" font-family="system-ui, sans-serif" font-size="15" fill="#0f172a" font-weight="700">Reporte PDF</text>
-    <text x="846" y="58" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">Exportacion profesional</text>
+    <text x="846" y="58" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">Exportación profesional</text>
   </g>
 
   <!-- Privacy badges -->
   <g transform="translate(90, 510)">
     <rect x="0" y="0" width="110" height="30" rx="15" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1"/>
-    <text x="55" y="20" font-family="system-ui, sans-serif" font-size="11" fill="#047857" text-anchor="middle" font-weight="700">ANONIMO</text>
+    <text x="55" y="20" font-family="system-ui, sans-serif" font-size="11" fill="#047857" text-anchor="middle" font-weight="700">ANÓNIMO</text>
 
     <rect x="120" y="0" width="100" height="30" rx="15" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
     <text x="170" y="20" font-family="system-ui, sans-serif" font-size="11" fill="#1d4ed8" text-anchor="middle" font-weight="700">SEGURO</text>
@@ -131,7 +131,7 @@
   <!-- TTPSEC branding bottom -->
   <text x="90" y="600" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#1e3a8a" font-weight="900" letter-spacing="-0.5">TTPSEC</text>
   <text x="180" y="600" font-family="system-ui, sans-serif" font-size="14" fill="#94a3b8">|</text>
-  <text x="195" y="600" font-family="system-ui, sans-serif" font-size="14" fill="#64748b">Software para el bien comun</text>
+  <text x="195" y="600" font-family="system-ui, sans-serif" font-size="14" fill="#64748b">Software para el bien común</text>
 
   <!-- MIT + URL right -->
   <text x="1110" y="593" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8" text-anchor="end">MIT License</text>
