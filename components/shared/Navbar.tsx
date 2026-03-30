@@ -1,6 +1,6 @@
 "use client";
 
-import { Shield } from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils/helpers";
 
 interface NavbarProps {
@@ -18,9 +18,13 @@ export function Navbar({ globalProgress }: NavbarProps) {
       <div className="flex items-center justify-between px-4 py-3 sm:px-6">
         {/* Logo y marca */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-500 shadow-sm shadow-blue-200">
-            <Shield className="w-6 h-6 text-white" />
-          </div>
+          <Image
+            src="/logo-ttpsec.png"
+            alt="TTPSEC"
+            width={40}
+            height={40}
+            className="h-10 w-auto"
+          />
           <div className="flex flex-col">
             <span className="text-lg font-black text-blue-900 tracking-tight leading-tight">
               CyberCEN

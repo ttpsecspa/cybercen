@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { cn } from "@/lib/utils/helpers";
 
 interface FooterProps {
@@ -15,6 +16,13 @@ export function Footer({ className }: FooterProps) {
       )}
     >
       <div className="flex flex-col items-center gap-2">
+        <Image
+          src="/logo-ttpsec.png"
+          alt="TTPSEC"
+          width={32}
+          height={32}
+          className="h-8 w-auto mb-1"
+        />
         <p className="text-xs text-slate-500">
           <strong className="text-blue-900 font-black">TTPSEC</strong>{" "}
           <span className="text-slate-400">|</span>{" "}

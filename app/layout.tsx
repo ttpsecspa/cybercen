@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   creator: "TTPSEC",
   publisher: "TTPSEC",
   icons: {
-    icon: "/favicon.svg",
-    apple: "/icon-192.svg",
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
   },
   openGraph: {
     type: "website",
