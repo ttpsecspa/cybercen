@@ -42,6 +42,9 @@ export function Footer({ className }: FooterProps) {
         <p className="text-xs text-slate-500 italic">
           Software para el bien común
         </p>
+        <p className="text-[10px] text-slate-400 font-mono mt-1">
+          MIT License &copy; {new Date().getFullYear()} TTPSEC SPA
+        </p>
       </div>
     </footer>
   );
