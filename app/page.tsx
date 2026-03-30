@@ -38,9 +38,9 @@ function LandingPage() {
   const [showConfig, setShowConfig] = useState(false);
 
   return (
-    <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] px-4 py-0">
+    <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] px-3 sm:px-4 py-0">
       {/* Cover / Portada */}
-      <div className="w-full max-w-4xl mt-6 mb-8 rounded-2xl overflow-hidden shadow-xl shadow-blue-200/50 border border-slate-200">
+      <div className="w-full max-w-4xl mt-4 sm:mt-6 mb-5 sm:mb-8 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-xl shadow-blue-200/50 border border-slate-200">
         <Image
           src="/og-image.png"
           alt="CyberCEN — Autoevaluación de Ciberseguridad para el Sector Eléctrico"
@@ -52,25 +52,25 @@ function LandingPage() {
       </div>
 
       {/* Hero text */}
-      <div className="w-full max-w-3xl text-center mb-8">
-        <div className="flex items-center justify-center gap-4 mb-4">
+      <div className="w-full max-w-3xl text-center mb-5 sm:mb-8">
+        <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
           <Image
             src="/logo-ttpsec.png"
             alt="TTPSEC"
             width={64}
             height={64}
-            className="h-16 w-auto"
+            className="h-10 sm:h-16 w-auto"
           />
-          <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
             <span className="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
               CyberCEN
             </span>
           </h1>
         </div>
-        <p className="text-lg md:text-xl font-bold text-slate-700">
+        <p className="text-base sm:text-lg md:text-xl font-bold text-slate-700">
           Autoevaluación del Estándar de Ciberseguridad
         </p>
-        <p className="mt-2 text-sm text-slate-500 max-w-xl mx-auto leading-relaxed">
+        <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-slate-500 max-w-xl mx-auto leading-relaxed">
           Herramienta gratuita para evaluar el cumplimiento del Estándar del
           Coordinador Eléctrico Nacional, basado en NERC CIP.
           12 dominios, 120 controles, análisis de riesgo y plan de acción.
@@ -78,12 +78,12 @@ function LandingPage() {
       </div>
 
       {/* CTA Buttons */}
-      <div className="flex flex-col sm:flex-row items-center gap-4 mb-12 w-full max-w-lg">
+      <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-8 sm:mb-12 w-full max-w-lg">
         <button
           type="button"
           onClick={() => setShowConfig(true)}
           className={cn(
-            "flex-1 w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-base font-bold text-white cursor-pointer",
+            "flex-1 w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-white cursor-pointer",
             "bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200",
             "hover:-translate-y-0.5 transition-all duration-200"
           )}
@@ -98,50 +98,54 @@ function LandingPage() {
       {showConfig && <ConfigModal onClose={() => setShowConfig(false)} />}
 
       {/* Features */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 w-full max-w-3xl">
         {[
           {
             icon: ListChecks,
             title: "12 Dominios CIP",
-            desc: "Evaluación integral basada en estándares NERC CIP-002 a CIP-014",
+            desc: "NERC CIP-002 a CIP-014",
+            descLong: "Evaluación integral basada en estándares NERC CIP-002 a CIP-014",
           },
           {
             icon: AlertTriangle,
             title: "Análisis de Brechas",
-            desc: "Identifica vulnerabilidades y prioriza remediación por riesgo",
+            desc: "Riesgo y remediación",
+            descLong: "Identifica vulnerabilidades y prioriza remediación por riesgo",
           },
           {
             icon: CheckCircle2,
             title: "Plan de Acción",
-            desc: "Recomendaciones concretas con plazos y recursos estimados",
+            desc: "Plazos y recursos",
+            descLong: "Recomendaciones concretas con plazos y recursos estimados",
           },
         ].map((feat) => (
           <div
             key={feat.title}
-            className="flex flex-col items-center text-center rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-blue-300 hover:-translate-y-0.5 transition-all"
+            className="flex flex-col items-center text-center rounded-xl sm:rounded-2xl border border-slate-200 bg-white p-3 sm:p-6 shadow-sm hover:shadow-md hover:border-blue-300 hover:-translate-y-0.5 transition-all"
           >
-            <feat.icon className="w-6 h-6 text-blue-500 mb-3" />
-            <span className="text-sm font-bold text-slate-900">
+            <feat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 mb-1.5 sm:mb-3" />
+            <span className="text-[11px] sm:text-sm font-bold text-slate-900 leading-tight">
               {feat.title}
             </span>
-            <span className="text-xs text-slate-500 leading-relaxed mt-1.5">{feat.desc}</span>
+            <span className="text-[10px] sm:text-xs text-slate-500 leading-relaxed mt-1 hidden sm:block">{feat.descLong}</span>
+            <span className="text-[10px] text-slate-500 leading-tight mt-1 sm:hidden">{feat.desc}</span>
           </div>
         ))}
       </div>
 
       {/* Big Disclaimer Banner */}
-      <div className="w-full max-w-3xl mt-10 rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-50 p-6 shadow-lg shadow-amber-100/50">
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <AlertTriangle className="w-7 h-7 text-amber-600" />
-          <h3 className="text-lg font-extrabold text-amber-900 uppercase tracking-wider">
+      <div className="w-full max-w-3xl mt-6 sm:mt-10 rounded-xl sm:rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-orange-50 p-4 sm:p-6 shadow-lg shadow-amber-100/50">
+        <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <AlertTriangle className="w-5 h-5 sm:w-7 sm:h-7 text-amber-600" />
+          <h3 className="text-sm sm:text-lg font-extrabold text-amber-900 uppercase tracking-wider">
             Aviso Importante
           </h3>
-          <AlertTriangle className="w-7 h-7 text-amber-600" />
+          <AlertTriangle className="w-5 h-5 sm:w-7 sm:h-7 text-amber-600" />
         </div>
 
-        <div className="rounded-xl bg-white/70 border border-amber-200 p-5 mb-4">
-          <div className="flex items-start gap-3 mb-3">
-            <GraduationCap className="w-6 h-6 text-amber-600 mt-0.5 shrink-0" />
+        <div className="rounded-lg sm:rounded-xl bg-white/70 border border-amber-200 p-3 sm:p-5 mb-3 sm:mb-4">
+          <div className="flex items-start gap-2 sm:gap-3 mb-2.5 sm:mb-3">
+            <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600 mt-0.5 shrink-0" />
             <div>
               <p className="text-sm font-bold text-slate-800">
                 Plataforma sin fines de lucro, con fines exclusivamente académicos y educativos.
@@ -152,8 +156,8 @@ function LandingPage() {
             </div>
           </div>
 
-          <div className="flex items-start gap-3 mb-3">
-            <Ban className="w-6 h-6 text-red-500 mt-0.5 shrink-0" />
+          <div className="flex items-start gap-2 sm:gap-3 mb-2.5 sm:mb-3">
+            <Ban className="w-5 h-5 sm:w-6 sm:h-6 text-red-500 mt-0.5 shrink-0" />
             <div>
               <p className="text-sm font-bold text-slate-800">
                 No afiliada al Coordinador Eléctrico Nacional (CEN).
@@ -164,8 +168,8 @@ function LandingPage() {
             </div>
           </div>
 
-          <div className="flex items-start gap-3">
-            <ShieldCheck className="w-6 h-6 text-green-500 mt-0.5 shrink-0" />
+          <div className="flex items-start gap-2 sm:gap-3">
+            <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 mt-0.5 shrink-0" />
             <div>
               <p className="text-sm font-bold text-slate-800">
                 No reemplaza una auditoría formal de ciberseguridad.
@@ -307,7 +311,7 @@ function DemoButton() {
       type="button"
       onClick={handleDemo}
       className={cn(
-        "flex-1 w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-base font-bold cursor-pointer",
+        "flex-1 w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold cursor-pointer",
         "bg-white border-2 border-slate-300 text-slate-700",
         "hover:border-blue-400 hover:text-blue-700 hover:bg-blue-50",
         "hover:-translate-y-0.5 transition-all duration-200"
@@ -342,13 +346,13 @@ function ConfigModal({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm px-0 sm:px-4" onClick={onClose}>
       <div
-        className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white shadow-2xl p-6 animate-in fade-in zoom-in-95"
+        className="w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl border border-slate-200 bg-white shadow-2xl p-5 sm:p-6 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-extrabold text-slate-900">
+        <div className="flex items-center justify-between mb-5 sm:mb-6">
+          <h2 className="text-lg sm:text-xl font-extrabold text-slate-900">
             Configurar Evaluación
           </h2>
           <button
