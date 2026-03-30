@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { cn } from "@/lib/utils/helpers";
+import { APP_VERSION, APP_BUILD_DATE } from "@/lib/version";
 
 interface FooterProps {
   className?: string;
@@ -52,6 +53,9 @@ export function Footer({ className }: FooterProps) {
         </p>
         <p className="text-[10px] text-slate-400 font-mono mt-1">
           MIT License &copy; {new Date().getFullYear()} TTPSEC SPA
+        </p>
+        <p className="text-[10px] text-slate-300 font-mono">
+          v{APP_VERSION} &middot; {APP_BUILD_DATE}
         </p>
         <div className="border-t border-slate-200 pt-4 mt-2">
           <p className="text-xs text-slate-400 mb-2">
