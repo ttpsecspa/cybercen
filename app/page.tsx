@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Shield,
@@ -37,18 +38,34 @@ function LandingPage() {
   const [showConfig, setShowConfig] = useState(false);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-4 py-12">
-      {/* Hero */}
-      <div className="w-full max-w-3xl text-center mb-10">
-        <div className="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-500 shadow-xl shadow-blue-200 mb-8">
-          <Shield className="w-12 h-12 text-white" />
+    <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] px-4 py-0">
+      {/* Cover / Portada */}
+      <div className="w-full max-w-4xl mt-6 mb-8 rounded-2xl overflow-hidden shadow-xl shadow-blue-200/50 border border-slate-200">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/og-image.svg"
+          alt="CyberCEN — Autoevaluación de Ciberseguridad para el Sector Eléctrico"
+          className="w-full h-auto"
+        />
+      </div>
+
+      {/* Hero text */}
+      <div className="w-full max-w-3xl text-center mb-8">
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <Image
+            src="/logo-ttpsec.png"
+            alt="TTPSEC"
+            width={64}
+            height={64}
+            className="h-16 w-auto"
+          />
+          <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
+              CyberCEN
+            </span>
+          </h1>
         </div>
-        <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-          <span className="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
-            CyberCEN
-          </span>
-        </h1>
-        <p className="mt-2 text-lg md:text-xl font-bold text-slate-700">
+        <p className="text-lg md:text-xl font-bold text-slate-700">
           Autoevaluación del Estándar de Ciberseguridad
         </p>
         <p className="mt-2 text-sm text-slate-500 max-w-xl mx-auto leading-relaxed">
