@@ -41,11 +41,13 @@ function LandingPage() {
     <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] px-4 py-0">
       {/* Cover / Portada */}
       <div className="w-full max-w-4xl mt-6 mb-8 rounded-2xl overflow-hidden shadow-xl shadow-blue-200/50 border border-slate-200">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/og-image.svg"
+        <Image
+          src="/og-image.png"
           alt="CyberCEN — Autoevaluación de Ciberseguridad para el Sector Eléctrico"
+          width={1200}
+          height={630}
           className="w-full h-auto"
+          priority
         />
       </div>
 

@@ -45,7 +45,7 @@ export const metadata: Metadata = {
       "Evalúa tu cumplimiento del Estándar de Ciberseguridad del CEN basado en NERC CIP. 12 dominios, 120 controles, análisis de riesgo y plan de acción.",
     images: [
       {
-        url: "/og-image.svg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "CyberCEN - Autoevaluación de Ciberseguridad para el Sector Eléctrico",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     title: "CyberCEN by TTPSEC SPA - Autoevaluación de Ciberseguridad",
     description:
       "Evalúa tu cumplimiento del Estándar de Ciberseguridad del CEN. 12 dominios NERC CIP, análisis de riesgo y recomendaciones.",
-    images: ["/og-twitter.svg"],
+    images: ["/og-twitter.png"],
     creator: "@ttpsec",
   },
   robots: {
