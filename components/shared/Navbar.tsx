@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { cn } from "@/lib/utils/helpers";
+import { cn, assetPath } from "@/lib/utils/helpers";
 
 interface NavbarProps {
   globalProgress: number;
@@ -19,7 +19,7 @@ export function Navbar({ globalProgress }: NavbarProps) {
         {/* Logo y marca */}
         <div className="flex items-center gap-3">
           <Image
-            src="/logo-ttpsec.png"
+            src={assetPath("/logo-ttpsec.png")}
             alt="TTPSEC"
             width={40}
             height={40}

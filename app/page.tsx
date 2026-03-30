@@ -27,7 +27,7 @@ import { useEvaluationStore } from "@/lib/store/evaluation-store";
 import { cipStandards } from "@/lib/data/cip-standards";
 import { questions } from "@/lib/data/questions";
 import type { AnswerValue, DomainResult, EntityType, ImpactLevel, RiskLevel } from "@/lib/data/types";
-import { cn } from "@/lib/utils/helpers";
+import { cn, assetPath } from "@/lib/utils/helpers";
 import { RiskGauge } from "@/components/dashboard/RiskGauge";
 import { DomainCard } from "@/components/dashboard/DomainCard";
 import { RiskHeatmap } from "@/components/dashboard/RiskHeatmap";
@@ -42,7 +42,7 @@ function LandingPage() {
       {/* Cover / Portada */}
       <div className="w-full max-w-4xl mt-4 sm:mt-6 mb-5 sm:mb-8 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-xl shadow-blue-200/50 border border-slate-200">
         <Image
-          src="/og-image.png"
+          src={assetPath("/og-image.png")}
           alt="CyberCEN — Autoevaluación de Ciberseguridad para el Sector Eléctrico"
           width={1200}
           height={630}
@@ -55,7 +55,7 @@ function LandingPage() {
       <div className="w-full max-w-3xl text-center mb-5 sm:mb-8">
         <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
           <Image
-            src="/logo-ttpsec.png"
+            src={assetPath("/logo-ttpsec.png")}
             alt="TTPSEC"
             width={64}
             height={64}

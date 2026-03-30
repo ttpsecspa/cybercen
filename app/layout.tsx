@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ttpsecspa.github.io/cybercen"),
   title: "CyberCEN by TTPSEC SPA - Autoevaluación de Ciberseguridad",
   description:
     "Herramienta de autoevaluación de ciberseguridad para el sector eléctrico, basada en los estándares NERC CIP adaptados al Coordinador Eléctrico Nacional (CEN) de Chile. 12 dominios CIP, análisis de riesgo y plan de acción.",
