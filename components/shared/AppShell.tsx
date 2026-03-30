@@ -83,6 +83,20 @@ export function AppShell({ children }: AppShellProps) {
     return Math.round((answeredQuestions / totalQuestions) * 100);
   }, [evaluation, domainResults]);
 
+  // Landing page: no navbar, sidebar, or breadcrumbs
+  const isLanding = !evaluation && pathname === "/";
+
+  if (isLanding) {
+    return (
+      <div className="flex flex-col min-h-screen bg-slate-50">
+        <main className="flex-1">
+          {children}
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col h-screen">
       <Navbar globalProgress={globalProgress} />
