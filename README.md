@@ -6,49 +6,51 @@
 
 # CyberCEN
 
-*Herramienta de autoevaluacion de ciberseguridad para el sector electrico de Chile, basada en los estandares NERC CIP adaptados al Coordinador Electrico Nacional (CEN).*
+*Herramienta de autoevaluación de ciberseguridad para el sector eléctrico de Chile, basada en los estándares NERC CIP adaptados al Coordinador Eléctrico Nacional (CEN).*
 
-| Stack | Licencia | Estado | Version |
+| Stack | Licencia | Estado | Versión |
 |-------|----------|--------|---------|
-| Next.js 16 + React 19 + TypeScript 5 + Tailwind CSS 4 | MIT | Stable | v2.3 |
+| Next.js 16 + React 19 + TypeScript 5 + Tailwind CSS 4 | MIT | Stable | v2.4 |
+
+**Demo en vivo:** [ttpsecspa.github.io/cybercen](https://ttpsecspa.github.io/cybercen) — Haz clic en **"Ver Demo"** para explorar con datos ficticios precargados.
 
 ---
 
 ## Tabla de Contenidos
 
-- [Descripcion](#descripcion)
+- [Descripción](#descripción)
 - [Arquitectura](#arquitectura)
 - [Requisitos Previos](#requisitos-previos)
-- [Instalacion](#instalacion)
+- [Instalación](#instalación)
 - [Uso](#uso)
-- [Configuracion](#configuracion)
+- [Configuración](#configuración)
 - [Dominios CIP](#dominios-cip)
 - [Motor de Riesgo](#motor-de-riesgo)
 - [Seguridad](#-seguridad)
 - [Testing](#-testing)
-- [Contribucion](#-contribucion)
+- [Contribución](#-contribución)
 - [Roadmap](#-roadmap)
 - [Licencia](#-licencia)
 - [Contacto](#-contacto)
 
 ---
 
-## Descripcion
+## Descripción
 
-CyberCEN permite a las organizaciones del sector electrico chileno evaluar su nivel de cumplimiento del Estandar de Ciberseguridad del CEN, basado en NERC CIP (Critical Infrastructure Protection). Las 500+ empresas coordinadas por el CEN deben cumplir requisitos de ciberseguridad y entregar reportes anuales.
+CyberCEN permite a las organizaciones del sector eléctrico chileno evaluar su nivel de cumplimiento del Estándar de Ciberseguridad del CEN, basado en NERC CIP (Critical Infrastructure Protection). Las 500+ empresas coordinadas por el CEN deben cumplir requisitos de ciberseguridad y entregar reportes anuales.
 
-Esta herramienta ofrece un autodiagnostico rapido, calcula el nivel de riesgo y sugiere acciones correctivas para cada dominio.
+Esta herramienta ofrece un autodiagnóstico rápido, calcula el nivel de riesgo y sugiere acciones correctivas para cada dominio.
 
-**Caracteristicas principales:**
+**Características principales:**
 
-- **12 Dominios CIP** — Evaluacion integral basada en NERC CIP-002 a CIP-014
+- **12 Dominios CIP** — Evaluación integral basada en NERC CIP-002 a CIP-014
 - **120 Controles** — Preguntas adaptadas por tipo de entidad y nivel de impacto
-- **Motor de Riesgo** — Calculo ponderado con 5 niveles (Critico/Alto/Medio/Bajo/Optimo)
-- **Analisis de Brechas** — Identificacion automatica de vulnerabilidades por prioridad
-- **Plan de Accion** — Recomendaciones priorizadas con plazos y recursos estimados
-- **Reporte PDF** — Exportacion profesional compatible con requerimientos SEC/CEN
+- **Motor de Riesgo** — Cálculo ponderado con 5 niveles (Crítico/Alto/Medio/Bajo/Óptimo)
+- **Análisis de Brechas** — Identificación automática de vulnerabilidades por prioridad
+- **Plan de Acción** — Recomendaciones priorizadas con plazos y recursos estimados
+- **Reporte PDF** — Exportación profesional compatible con requerimientos SEC/CEN
 - **100% Privada** — Sin backend, sin tracking, sin registro. Todo en el navegador
-- **Modo Demo** — Visualizacion instantanea con datos ficticios precargados
+- **Modo Demo** — Visualización instantánea con datos ficticios precargados
 
 ---
 
@@ -63,7 +65,7 @@ Esta herramienta ofrece un autodiagnostico rapido, calcula el nivel de riesgo y 
 ┌──────────────────────▼──────────────────────────────┐
 │                  Next.js App Router                   │
 │  ┌──────────┬────────────┬──────────┬─────────────┐ │
-│  │ Landing  │ Evaluacion │Resultados│  Reportes   │ │
+│  │ Landing  │ Evaluación │Resultados│  Reportes   │ │
 │  │  Page    │  [cipId]   │  + Gaps  │  PDF Export  │ │
 │  └────┬─────┴─────┬──────┴────┬─────┴──────┬──────┘ │
 │       │           │           │            │         │
@@ -87,20 +89,20 @@ Esta herramienta ofrece un autodiagnostico rapido, calcula el nivel de riesgo y 
 
 **Componentes clave:**
 
-| Componente | Ubicacion | Funcion |
+| Componente | Ubicación | Función |
 |------------|-----------|---------|
-| Landing Page | `app/page.tsx` | Portada, demo, configuracion de evaluacion |
-| Evaluacion | `app/evaluacion/[cipId]/` | Formulario de preguntas por dominio CIP |
-| Motor de Riesgo | `lib/engine/` | Calculo de scores, brechas y nivel de riesgo |
+| Landing Page | `app/page.tsx` | Portada, demo, configuración de evaluación |
+| Evaluación | `app/evaluacion/[cipId]/` | Formulario de preguntas por dominio CIP |
+| Motor de Riesgo | `lib/engine/` | Cálculo de scores, brechas y nivel de riesgo |
 | Store | `lib/store/evaluation-store.ts` | Estado global con persistencia en localStorage |
-| Datos CIP | `lib/data/` | 12 estandares, 120 preguntas, recomendaciones |
-| Reportes | `lib/engine/report-generator.ts` | Generacion de resumen ejecutivo y PDF |
+| Datos CIP | `lib/data/` | 12 estándares, 120 preguntas, recomendaciones |
+| Reportes | `lib/engine/report-generator.ts` | Generación de resumen ejecutivo y PDF |
 
 ---
 
 ## Requisitos Previos
 
-| Requisito | Version Minima |
+| Requisito | Versión Mínima |
 |-----------|---------------|
 | Node.js | 20.x |
 | npm | 9.x |
@@ -109,11 +111,11 @@ Esta herramienta ofrece un autodiagnostico rapido, calcula el nivel de riesgo y 
 
 **Sistemas operativos soportados:** Windows 10+, macOS 12+, Linux (Ubuntu 20.04+)
 
-No requiere variables de entorno. La aplicacion funciona completamente en el cliente.
+No requiere variables de entorno. La aplicación funciona completamente en el cliente.
 
 ---
 
-## Instalacion
+## Instalación
 
 ```bash
 # 1. Clonar el repositorio
@@ -129,10 +131,10 @@ npm run dev
 
 Abrir [http://localhost:3000](http://localhost:3000) en el navegador.
 
-### Build de produccion
+### Build de producción
 
 ```bash
-# Generar export estatico
+# Generar export estático
 npm run build
 
 # Los archivos se generan en ./out/
@@ -142,60 +144,60 @@ npx serve out
 
 ### Deploy en GitHub Pages
 
-El proyecto incluye un workflow de GitHub Actions (`.github/workflows/deploy.yml`) que despliega automaticamente al hacer push a `master`.
+El proyecto incluye un workflow de GitHub Actions (`.github/workflows/deploy.yml`) que despliega automáticamente al hacer push a `master`.
 
 ---
 
 ## Uso
 
-### Inicio rapido
+### Inicio rápido
 
-1. Abrir la aplicacion en el navegador
-2. Elegir **"Ver Demo"** para explorar con datos ficticios, o **"Iniciar con datos reales"** para evaluar su organizacion
-3. Seleccionar tipo de entidad (Generacion/Transmision/Distribucion) y nivel de impacto (Alto/Medio/Bajo)
-4. Responder las preguntas de cada dominio CIP (Si/Parcial/No)
+1. Abrir la aplicación en el navegador
+2. Elegir **"Ver Demo"** para explorar con datos ficticios, o **"Iniciar con datos reales"** para evaluar su organización
+3. Seleccionar tipo de entidad (Generación/Transmisión/Distribución) y nivel de impacto (Alto/Medio/Bajo)
+4. Responder las preguntas de cada dominio CIP (Sí/Parcial/No)
 5. Revisar resultados en el panel de control
-6. Consultar el analisis de brechas y plan de accion
+6. Consultar el análisis de brechas y plan de acción
 7. Exportar reporte PDF
 
-### Flujo de evaluacion
+### Flujo de evaluación
 
 ```
 Inicio → Configurar entidad → Evaluar 12 dominios CIP
-       → Ver dashboard con scores → Analisis de brechas
-       → Plan de accion priorizado → Exportar reporte PDF
+       → Ver dashboard con scores → Análisis de brechas
+       → Plan de acción priorizado → Exportar reporte PDF
 ```
 
 ### Modo Demo
 
-El boton **"Ver Demo"** precarga 120 respuestas con un patron realista (~62% cumplimiento) para una empresa de generacion electrica con impacto medio. Permite explorar todas las funcionalidades sin ingresar datos.
+El botón **"Ver Demo"** precarga 120 respuestas con un patrón realista (~62% cumplimiento) para una empresa de generación eléctrica con impacto medio. Permite explorar todas las funcionalidades sin ingresar datos.
 
 ---
 
-## Configuracion
+## Configuración
 
 ### next.config.ts
 
 ```typescript
 const nextConfig: NextConfig = {
-  output: 'export',                                          // Export estatico
+  output: 'export',                                          // Export estático
   basePath: process.env.NODE_ENV === 'production' ? '/cybercen' : '', // GitHub Pages
-  images: { unoptimized: true },                             // Sin optimizacion de imagenes
+  images: { unoptimized: true },                             // Sin optimización de imágenes
 };
 ```
 
-### Parametros del motor de riesgo
+### Parámetros del motor de riesgo
 
-| Parametro | Tipo | Default | Descripcion |
+| Parámetro | Tipo | Default | Descripción |
 |-----------|------|---------|-------------|
-| `yes` score | number | 100 | Puntuacion para respuesta "Si" |
-| `partial` score | number | 50 | Puntuacion para respuesta "Parcial" |
-| `no` score | number | 0 | Puntuacion para respuesta "No" |
-| Nivel Critico | rango | 0-25% | Accion inmediata requerida |
+| `yes` score | number | 100 | Puntuación para respuesta "Sí" |
+| `partial` score | number | 50 | Puntuación para respuesta "Parcial" |
+| `no` score | number | 0 | Puntuación para respuesta "No" |
+| Nivel Crítico | rango | 0-25% | Acción inmediata requerida |
 | Nivel Alto | rango | 26-50% | Plan correctivo urgente |
 | Nivel Medio | rango | 51-75% | Mejoras programadas |
-| Nivel Bajo | rango | 76-90% | Optimizacion continua |
-| Nivel Optimo | rango | 91-100% | Mantener y monitorear |
+| Nivel Bajo | rango | 76-90% | Optimización continua |
+| Nivel Óptimo | rango | 91-100% | Mantener y monitorear |
 
 ---
 
@@ -203,29 +205,29 @@ const nextConfig: NextConfig = {
 
 | # | CIP | Dominio | Peso |
 |---|-----|---------|------|
-| 1 | CIP-002 | Categorizacion de Ciber Activos BES | 10% |
-| 2 | CIP-003 | Controles de Gestion de Seguridad | 10% |
-| 3 | CIP-004 | Personal y Capacitacion | 8% |
-| 4 | CIP-005 | Perimetros de Seguridad Electronica | 10% |
-| 5 | CIP-006 | Seguridad Fisica | 8% |
-| 6 | CIP-007 | Gestion de Seguridad de Sistemas | 10% |
+| 1 | CIP-002 | Categorización de Ciber Activos BES | 10% |
+| 2 | CIP-003 | Controles de Gestión de Seguridad | 10% |
+| 3 | CIP-004 | Personal y Capacitación | 8% |
+| 4 | CIP-005 | Perímetros de Seguridad Electrónica | 10% |
+| 5 | CIP-006 | Seguridad Física | 8% |
+| 6 | CIP-007 | Gestión de Seguridad de Sistemas | 10% |
 | 7 | CIP-008 | Reporte y Respuesta a Incidentes | 8% |
-| 8 | CIP-009 | Planes de Recuperacion | 8% |
-| 9 | CIP-010 | Gestion de Cambios y Vulnerabilidades | 8% |
-| 10 | CIP-011 | Proteccion de Informacion | 6% |
-| 11 | CIP-013 | Gestion de Riesgo de Cadena de Suministro | 7% |
-| 12 | CIP-014 | Seguridad Fisica de Infraestructura Critica | 7% |
+| 8 | CIP-009 | Planes de Recuperación | 8% |
+| 9 | CIP-010 | Gestión de Cambios y Vulnerabilidades | 8% |
+| 10 | CIP-011 | Protección de Información | 6% |
+| 11 | CIP-013 | Gestión de Riesgo de Cadena de Suministro | 7% |
+| 12 | CIP-014 | Seguridad Física de Infraestructura Crítica | 7% |
 
-Cada dominio contiene 10 preguntas de evaluacion adaptables segun el tipo de entidad y nivel de impacto seleccionado.
+Cada dominio contiene 10 preguntas de evaluación adaptables según el tipo de entidad y nivel de impacto seleccionado.
 
 ---
 
 ## Motor de Riesgo
 
-### Calculo de score por dominio
+### Cálculo de score por dominio
 
 ```
-Score_dominio = (Σ puntuacion_respuestas / total_preguntas_aplicables) × 100
+Score_dominio = (Σ puntuación_respuestas / total_preguntas_aplicables) × 100
 ```
 
 ### Score global ponderado
@@ -236,9 +238,9 @@ Score_global = Σ (Score_dominio × Peso_dominio) / Σ Pesos
 
 ### Funciones principales
 
-| Funcion | Archivo | Descripcion |
+| Función | Archivo | Descripción |
 |---------|---------|-------------|
-| `getAnswerScore(value)` | `lib/engine/scoring.ts` | Convierte respuesta a puntuacion (0-100) |
+| `getAnswerScore(value)` | `lib/engine/scoring.ts` | Convierte respuesta a puntuación (0-100) |
 | `getRiskLevel(score)` | `lib/engine/scoring.ts` | Determina nivel de riesgo desde score |
 | `calculateDomainScore()` | `lib/engine/risk-calculator.ts` | Score de cumplimiento por dominio |
 | `calculateDomainResult()` | `lib/engine/risk-calculator.ts` | Resultado completo con brechas |
@@ -253,20 +255,20 @@ Score_global = Σ (Score_dominio × Peso_dominio) / Σ Pesos
 
 ### Modelo de amenazas
 
-CyberCEN es una aplicacion 100% client-side que **no transmite datos a servidores externos**. El modelo de amenazas se centra en:
+CyberCEN es una aplicación 100% client-side que **no transmite datos a servidores externos**. El modelo de amenazas se centra en:
 
-- Proteccion de datos de evaluacion en el navegador (localStorage)
-- Prevencion de inyeccion de contenido malicioso (CSP)
-- Integridad de la aplicacion servida desde GitHub Pages
+- Protección de datos de evaluación en el navegador (localStorage)
+- Prevención de inyección de contenido malicioso (CSP)
+- Integridad de la aplicación servida desde GitHub Pages
 
 ### Controles implementados
 
-- **Content Security Policy (CSP)** via meta tags
+- **Content Security Policy (CSP)** vía meta tags
 - **X-Content-Type-Options: nosniff**
 - **X-Frame-Options: DENY**
 - **Referrer-Policy: strict-origin-when-cross-origin**
-- **Validacion de input** en importacion de evaluaciones (JSON parsing seguro)
-- **Sanitizacion de nombres de archivo** en exportacion PDF
+- **Validación de input** en importación de evaluaciones (JSON parsing seguro)
+- **Sanitización de nombres de archivo** en exportación PDF
 - **Sin secretos ni credenciales** en el repositorio
 - **`.gitignore` reforzado** para excluir archivos sensibles
 
@@ -287,7 +289,7 @@ Consultar [SECURITY.md](SECURITY.md) para el proceso de reporte responsable.
 # Lint
 npm run lint
 
-# Build de verificacion
+# Build de verificación
 npm run build
 ```
 
@@ -301,9 +303,9 @@ npm run build
 
 ---
 
-## Contribucion
+## Contribución
 
-Consultar [CONTRIBUTING.md](CONTRIBUTING.md) para guias de estilo, proceso de PRs y convenciones de commits.
+Consultar [CONTRIBUTING.md](CONTRIBUTING.md) para guías de estilo, proceso de PRs y convenciones de commits.
 
 ---
 
@@ -311,25 +313,25 @@ Consultar [CONTRIBUTING.md](CONTRIBUTING.md) para guias de estilo, proceso de PR
 
 - [x] 12 dominios CIP con 120 preguntas
 - [x] Motor de riesgo ponderado
-- [x] Analisis de brechas automatico
-- [x] Plan de accion con recomendaciones priorizadas
-- [x] Exportacion de reporte PDF
+- [x] Análisis de brechas automático
+- [x] Plan de acción con recomendaciones priorizadas
+- [x] Exportación de reporte PDF
 - [x] Modo demo con datos precargados
 - [x] Landing page profesional con portada
-- [x] Deploy automatico en GitHub Pages
+- [x] Deploy automático en GitHub Pages
 - [x] Hardening de seguridad (CSP, headers)
 - [ ] Tests unitarios del motor de riesgo
 - [ ] Tests E2E con Playwright
 - [ ] PWA (Progressive Web App) para uso offline completo
-- [ ] Comparacion entre evaluaciones (historico)
-- [ ] Exportacion a Excel/CSV
-- [ ] Internacionalizacion (i18n)
+- [ ] Comparación entre evaluaciones (histórico)
+- [ ] Exportación a Excel/CSV
+- [ ] Internacionalización (i18n)
 
 ---
 
 ## Licencia
 
-Este proyecto esta licenciado bajo la [Licencia MIT](LICENSE).
+Este proyecto está licenciado bajo la [Licencia MIT](LICENSE).
 
 ```
 MIT License - Copyright (c) 2026 TTPSEC SPA
@@ -339,12 +341,12 @@ MIT License - Copyright (c) 2026 TTPSEC SPA
 
 ## Contacto
 
-- **Organizacion:** [TTPSEC SPA](https://www.ttpsec.ai)
+- **Organización:** [TTPSEC SPA](https://www.ttpsec.ai)
 - **Repositorio:** [github.com/ttpsecspa/cybercen](https://github.com/ttpsecspa/cybercen)
 - **Sitio:** [ttpsecspa.github.io/cybercen](https://ttpsecspa.github.io/cybercen)
 
-**Disclaimer:** Esta plataforma es un desarrollo independiente con fines academicos. No esta afiliada al Coordinador Electrico Nacional (CEN) ni a ninguna entidad gubernamental. No constituye asesoria profesional ni reemplaza una auditoria formal de ciberseguridad.
+**Disclaimer:** Esta plataforma es un desarrollo independiente con fines académicos. No está afiliada al Coordinador Eléctrico Nacional (CEN) ni a ninguna entidad gubernamental. No constituye asesoría profesional ni reemplaza una auditoría formal de ciberseguridad.
 
 ---
 
-*Software para el bien comun — TTPSEC SPA*
+*Software para el bien común — TTPSEC SPA*

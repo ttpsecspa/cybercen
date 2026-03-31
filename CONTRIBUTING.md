@@ -1,16 +1,16 @@
-# Guia de Contribucion
+# Guía de Contribución
 
-Gracias por tu interes en contribuir a CyberCEN. Este documento describe las convenciones y procesos para colaborar en el proyecto.
+Gracias por tu interés en contribuir a CyberCEN. Este documento describe las convenciones y procesos para colaborar en el proyecto.
 
 ---
 
 ## Tabla de Contenidos
 
-- [Codigo de Conducta](#codigo-de-conducta)
-- [Como Contribuir](#como-contribuir)
+- [Código de Conducta](#código-de-conducta)
+- [Cómo Contribuir](#cómo-contribuir)
 - [Entorno de Desarrollo](#entorno-de-desarrollo)
 - [Estructura del Proyecto](#estructura-del-proyecto)
-- [Convenciones de Codigo](#convenciones-de-codigo)
+- [Convenciones de Código](#convenciones-de-código)
 - [Convenciones de Commits](#convenciones-de-commits)
 - [Proceso de Pull Requests](#proceso-de-pull-requests)
 - [Reporte de Bugs](#reporte-de-bugs)
@@ -18,25 +18,25 @@ Gracias por tu interes en contribuir a CyberCEN. Este documento describe las con
 
 ---
 
-## Codigo de Conducta
+## Código de Conducta
 
-Este proyecto sigue un codigo de conducta basado en el respeto mutuo. Se espera que todos los participantes mantengan un ambiente profesional y colaborativo.
+Este proyecto sigue un código de conducta basado en el respeto mutuo. Se espera que todos los participantes mantengan un ambiente profesional y colaborativo.
 
 ---
 
-## Como Contribuir
+## Cómo Contribuir
 
-### Tipos de contribucion bienvenidos
+### Tipos de contribución bienvenidos
 
-- Correccion de bugs
+- Corrección de bugs
 - Mejoras de accesibilidad (a11y)
 - Traducciones (i18n)
-- Mejoras de documentacion
+- Mejoras de documentación
 - Tests unitarios y E2E
 - Optimizaciones de rendimiento
 - Nuevos controles CIP o actualizaciones regulatorias
 
-### Primer contribucion
+### Primer contribución
 
 1. Haz fork del repositorio
 2. Crea una rama desde `master`
@@ -49,7 +49,7 @@ Este proyecto sigue un codigo de conducta basado en el respeto mutuo. Se espera 
 
 ### Requisitos
 
-| Herramienta | Version |
+| Herramienta | Versión |
 |-------------|---------|
 | Node.js | >= 20.x |
 | npm | >= 9.x |
@@ -71,12 +71,12 @@ npm run dev
 
 ### Scripts disponibles
 
-| Script | Descripcion |
+| Script | Descripción |
 |--------|-------------|
 | `npm run dev` | Servidor de desarrollo con hot reload |
-| `npm run build` | Build de produccion (static export) |
+| `npm run build` | Build de producción (static export) |
 | `npm run lint` | Ejecutar ESLint |
-| `npm start` | Servir build de produccion |
+| `npm start` | Servir build de producción |
 
 ---
 
@@ -87,21 +87,21 @@ app/                  # Pages y layouts (App Router)
 components/
   ui/                 # Componentes base (shadcn/ui)
   dashboard/          # Componentes del dashboard
-  evaluacion/         # Componentes de evaluacion
+  evaluacion/         # Componentes de evaluación
   resultados/         # Componentes de resultados
   shared/             # Componentes compartidos
 lib/
-  data/               # Datos estaticos (CIP standards, preguntas)
-  engine/             # Motor de riesgo y calculo
+  data/               # Datos estáticos (CIP standards, preguntas)
+  engine/             # Motor de riesgo y cálculo
   store/              # Estado global (Zustand)
   utils/              # Utilidades
-public/               # Assets estaticos
-docs/                 # Documentacion tecnica
+public/               # Assets estáticos
+docs/                 # Documentación técnica
 ```
 
 ---
 
-## Convenciones de Codigo
+## Convenciones de Código
 
 ### TypeScript
 
@@ -129,16 +129,16 @@ docs/                 # Documentacion tecnica
 
 - Nombres de archivos en kebab-case para utilidades: `risk-calculator.ts`
 - Nombres en PascalCase para componentes: `DomainCard.tsx`
-- Extension `.tsx` para archivos con JSX, `.ts` para logica pura
+- Extensión `.tsx` para archivos con JSX, `.ts` para lógica pura
 
 ---
 
 ## Convenciones de Commits
 
-Seguimos [Conventional Commits](https://www.conventionalcommits.org/) con prefijos en ingles:
+Seguimos [Conventional Commits](https://www.conventionalcommits.org/) con prefijos en inglés:
 
 ```
-<tipo>: <descripcion concisa>
+<tipo>: <descripción concisa>
 ```
 
 ### Tipos
@@ -146,10 +146,10 @@ Seguimos [Conventional Commits](https://www.conventionalcommits.org/) con prefij
 | Tipo | Uso |
 |------|-----|
 | `feat` | Nueva funcionalidad |
-| `fix` | Correccion de bug |
-| `docs` | Solo documentacion |
-| `style` | Formato (no afecta logica) |
-| `refactor` | Refactorizacion sin cambio funcional |
+| `fix` | Corrección de bug |
+| `docs` | Solo documentación |
+| `style` | Formato (no afecta lógica) |
+| `refactor` | Refactorización sin cambio funcional |
 | `perf` | Mejora de rendimiento |
 | `test` | Agregar o modificar tests |
 | `chore` | Mantenimiento, dependencias, CI |
@@ -170,34 +170,34 @@ security: add CSP headers and input validation
 
 ### Antes de abrir un PR
 
-1. Asegurate de que `npm run lint` pase sin errores
-2. Asegurate de que `npm run build` complete exitosamente
+1. Asegúrate de que `npm run lint` pase sin errores
+2. Asegúrate de que `npm run build` complete exitosamente
 3. Prueba manualmente en al menos un navegador
 
 ### Template de PR
 
 ```markdown
-## Descripcion
-[Que cambia este PR y por que]
+## Descripción
+[Qué cambia este PR y por qué]
 
 ## Tipo de cambio
 - [ ] Bug fix
 - [ ] Nueva funcionalidad
 - [ ] Mejora de funcionalidad existente
-- [ ] Documentacion
-- [ ] Refactorizacion
+- [ ] Documentación
+- [ ] Refactorización
 
 ## Checklist
 - [ ] Lint pasa (`npm run lint`)
 - [ ] Build exitoso (`npm run build`)
 - [ ] Probado en Chrome/Firefox/Safari
 - [ ] Responsive verificado (mobile + desktop)
-- [ ] Sin secretos ni credenciales en el codigo
+- [ ] Sin secretos ni credenciales en el código
 ```
 
-### Criterios de revision
+### Criterios de revisión
 
-- Codigo limpio y legible
+- Código limpio y legible
 - Sin vulnerabilidades de seguridad
 - Responsive design mantenido
 - Consistencia con el estilo existente
@@ -209,7 +209,7 @@ security: add CSP headers and input validation
 
 Usa la template de [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md) e incluye:
 
-1. Descripcion clara del bug
+1. Descripción clara del bug
 2. Pasos para reproducir
 3. Comportamiento esperado vs. actual
 4. Navegador y sistema operativo
@@ -221,8 +221,8 @@ Usa la template de [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md) e incluye:
 
 Usa la template de [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md) e incluye:
 
-1. Descripcion del feature propuesto
-2. Caso de uso y motivacion
+1. Descripción del feature propuesto
+2. Caso de uso y motivación
 3. Alternativas consideradas
 4. Mockups o ejemplos si aplica
 
@@ -230,13 +230,13 @@ Usa la template de [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md) 
 
 ## Versionamiento
 
-El proyecto usa versionamiento semantico simplificado (`MAJOR.MINOR`):
+El proyecto usa versionamiento semántico simplificado (`MAJOR.MINOR`):
 
-- **MAJOR**: Cambios que rompen compatibilidad (ej. reestructuracion de datos)
+- **MAJOR**: Cambios que rompen compatibilidad (ej. reestructuración de datos)
 - **MINOR**: Nuevas funcionalidades o mejoras significativas
 
-La version se actualiza en `lib/version.ts` con cada release.
+La versión se actualiza en `lib/version.ts` con cada release.
 
 ---
 
-*Gracias por contribuir a la ciberseguridad del sector electrico chileno.*
+*Gracias por contribuir a la ciberseguridad del sector eléctrico chileno.*

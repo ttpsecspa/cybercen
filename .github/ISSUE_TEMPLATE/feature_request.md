@@ -6,25 +6,25 @@ labels: enhancement
 assignees: ''
 ---
 
-## Descripcion del Feature
+## Descripción del Feature
 
-Descripcion clara y concisa de la funcionalidad propuesta.
+Descripción clara y concisa de la funcionalidad propuesta.
 
-## Motivacion
+## Motivación
 
-Explicar por que esta funcionalidad seria util. Que problema resuelve?
+Explicar por qué esta funcionalidad sería útil. ¿Qué problema resuelve?
 
 ## Caso de Uso
 
 Describir el escenario de uso:
 
 1. Como [tipo de usuario]...
-2. Quiero [accion]...
+2. Quiero [acción]...
 3. Para [beneficio]...
 
-## Solucion Propuesta
+## Solución Propuesta
 
-Descripcion de como deberia funcionar la solucion.
+Descripción de cómo debería funcionar la solución.
 
 ## Alternativas Consideradas
 

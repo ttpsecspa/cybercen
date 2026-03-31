@@ -2,24 +2,24 @@
 
 ## Modelo de Seguridad
 
-CyberCEN es una aplicacion **100% client-side** desplegada como sitio estatico en GitHub Pages. No existe backend, base de datos, ni comunicacion con servidores externos. Este modelo reduce drasticamente la superficie de ataque.
+CyberCEN es una aplicación **100% client-side** desplegada como sitio estático en GitHub Pages. No existe backend, base de datos, ni comunicación con servidores externos. Este modelo reduce drásticamente la superficie de ataque.
 
 ### Datos procesados
 
 | Dato | Almacenamiento | Sensibilidad |
 |------|---------------|--------------|
-| Respuestas de evaluacion | localStorage (navegador) | Media |
+| Respuestas de evaluación | localStorage (navegador) | Media |
 | Tipo de entidad / impacto | localStorage (navegador) | Baja |
 | Resultados y scores | Calculados en runtime | Baja |
 | Reporte PDF | Generado localmente | Media |
 
-**Ningun dato sale del navegador del usuario.**
+**Ningún dato sale del navegador del usuario.**
 
 ---
 
 ## Versiones Soportadas
 
-| Version | Soporte |
+| Versión | Soporte |
 |---------|---------|
 | 2.x | Parches de seguridad activos |
 | 1.x | Sin soporte |
@@ -33,39 +33,39 @@ Si descubres una vulnerabilidad de seguridad en CyberCEN, te pedimos que la repo
 
 ### Proceso
 
-1. **NO** abras un issue publico con detalles de la vulnerabilidad
-2. Envia un correo a **security@ttpsec.ai** con:
-   - Descripcion detallada de la vulnerabilidad
+1. **NO** abras un issue público con detalles de la vulnerabilidad
+2. Envía un correo a **security@ttpsec.ai** con:
+   - Descripción detallada de la vulnerabilidad
    - Pasos para reproducirla
    - Impacto potencial estimado
-   - (Opcional) Sugerencia de correccion
-3. Recibiras una confirmacion dentro de **48 horas habiles**
-4. Trabajaremos en una solucion y te mantendremos informado del progreso
-5. Una vez corregida, publicaremos un advisory y te daremos credito (si lo deseas)
+   - (Opcional) Sugerencia de corrección
+3. Recibirás una confirmación dentro de **48 horas hábiles**
+4. Trabajaremos en una solución y te mantendremos informado del progreso
+5. Una vez corregida, publicaremos un advisory y te daremos crédito (si lo deseas)
 
 ### Alcance
 
 **En alcance:**
 - Vulnerabilidades XSS en la interfaz web
 - Bypass de Content Security Policy
-- Inyeccion de contenido malicioso via importacion JSON
+- Inyección de contenido malicioso vía importación JSON
 - Vulnerabilidades en dependencias directas
-- Exposicion de datos sensibles de evaluacion
+- Exposición de datos sensibles de evaluación
 
 **Fuera de alcance:**
-- Ataques que requieren acceso fisico al dispositivo
-- Ingenieria social dirigida a usuarios
+- Ataques que requieren acceso físico al dispositivo
+- Ingeniería social dirigida a usuarios
 - Ataques DoS contra GitHub Pages
 - Vulnerabilidades en navegadores desactualizados
 
 ### Tiempos de Respuesta
 
-| Severidad | Tiempo de Respuesta | Tiempo de Correccion |
+| Severidad | Tiempo de Respuesta | Tiempo de Corrección |
 |-----------|--------------------|--------------------|
-| Critica | 24 horas | 72 horas |
+| Crítica | 24 horas | 72 horas |
 | Alta | 48 horas | 1 semana |
 | Media | 1 semana | 2 semanas |
-| Baja | 2 semanas | Proximo release |
+| Baja | 2 semanas | Próximo release |
 
 ---
 
@@ -89,39 +89,39 @@ frame-ancestors 'none';
 - `X-Frame-Options: DENY`
 - `Referrer-Policy: strict-origin-when-cross-origin`
 
-### Validacion de Input
+### Validación de Input
 
-- Importacion de evaluaciones: parsing JSON con validacion de esquema
-- Nombres de archivo en exportacion PDF: sanitizacion de caracteres especiales
-- Sin ejecucion de codigo dinamico desde datos de usuario
+- Importación de evaluaciones: parsing JSON con validación de esquema
+- Nombres de archivo en exportación PDF: sanitización de caracteres especiales
+- Sin ejecución de código dinámico desde datos de usuario
 
 ### Dependencias
 
-- Actualizacion regular via `npm audit`
+- Actualización regular vía `npm audit`
 - Solo dependencias de fuentes confiables (npm registry)
-- Sin dependencias con vulnerabilidades conocidas criticas
+- Sin dependencias con vulnerabilidades conocidas críticas
 
 ---
 
-## Buenas Practicas para Usuarios
+## Buenas Prácticas para Usuarios
 
 1. **Mantener el navegador actualizado** — Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
-2. **No compartir URLs con datos** — Los datos estan en localStorage, no en la URL
-3. **Exportar y respaldar** — Usar la funcion de exportacion para guardar evaluaciones
+2. **No compartir URLs con datos** — Los datos están en localStorage, no en la URL
+3. **Exportar y respaldar** — Usar la función de exportación para guardar evaluaciones
 4. **Verificar la URL** — Asegurarse de acceder desde `ttpsecspa.github.io/cybercen`
-5. **Limpiar datos sensibles** — Usar la funcion de reset al terminar la evaluacion
+5. **Limpiar datos sensibles** — Usar la función de reset al terminar la evaluación
 
 ---
 
 ## Reconocimientos
 
-Agradecemos a quienes reportan vulnerabilidades de forma responsable. Los reportantes seran reconocidos en este archivo (con su consentimiento).
+Agradecemos a quienes reportan vulnerabilidades de forma responsable. Los reportantes serán reconocidos en este archivo (con su consentimiento).
 
 <!-- Tabla de reconocimientos
-| Reportante | Vulnerabilidad | Fecha | Version |
+| Reportante | Vulnerabilidad | Fecha | Versión |
 |-----------|---------------|-------|---------|
 -->
 
 ---
 
-*Politica actualizada: 2026-03-30*
+*Política actualizada: 2026-03-30*

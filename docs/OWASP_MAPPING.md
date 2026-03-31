@@ -1,12 +1,12 @@
 # Mapeo OWASP Top 10:2021 — CyberCEN
 
-Analisis de cumplimiento con OWASP Top 10:2021 para la aplicacion CyberCEN.
+Análisis de cumplimiento con OWASP Top 10:2021 para la aplicación CyberCEN.
 
 ---
 
 ## Contexto
 
-CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub Pages. No tiene backend, base de datos, APIs, ni autenticacion. Este analisis evalua cada categoria OWASP en el contexto de una aplicacion 100% client-side.
+CyberCEN es una **Single Page Application (SPA) estática** desplegada en GitHub Pages. No tiene backend, base de datos, APIs, ni autenticación. Este análisis evalúa cada categoría OWASP en el contexto de una aplicación 100% client-side.
 
 ---
 
@@ -17,7 +17,7 @@ CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub 
 | Aspecto | Detalle |
 |---------|---------|
 | **Relevancia** | Baja |
-| **Razon** | Sin sistema de autenticacion ni autorizacion. Todos los usuarios tienen acceso identico. No hay datos de otros usuarios accesibles. |
+| **Razón** | Sin sistema de autenticación ni autorización. Todos los usuarios tienen acceso idéntico. No hay datos de otros usuarios accesibles. |
 | **Controles** | CSP `frame-ancestors: 'none'` previene clickjacking; `X-Frame-Options: DENY` |
 | **Estado** | N/A por arquitectura |
 
@@ -28,7 +28,7 @@ CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub 
 | Aspecto | Detalle |
 |---------|---------|
 | **Relevancia** | Baja |
-| **Razon** | No se transmiten datos sensibles. No se almacenan contraseñas ni tokens. |
+| **Razón** | No se transmiten datos sensibles. No se almacenan contraseñas ni tokens. |
 | **Controles** | HTTPS forzado por GitHub Pages; datos solo en localStorage del navegador |
 | **Estado** | N/A por arquitectura |
 
@@ -39,8 +39,8 @@ CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub 
 | Aspecto | Detalle |
 |---------|---------|
 | **Relevancia** | Media |
-| **Razon** | XSS es el vector principal en aplicaciones client-side |
-| **Controles** | React auto-escapa JSX output; no se usa `dangerouslySetInnerHTML`; CSP restringe scripts; validacion de input en importacion JSON |
+| **Razón** | XSS es el vector principal en aplicaciones client-side |
+| **Controles** | React auto-escapa JSX output; no se usa `dangerouslySetInnerHTML`; CSP restringe scripts; validación de input en importación JSON |
 | **Estado** | Mitigado |
 
 ---
@@ -50,8 +50,8 @@ CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub 
 | Aspecto | Detalle |
 |---------|---------|
 | **Relevancia** | Media |
-| **Razon** | El diseño debe considerar privacidad de datos de evaluacion |
-| **Controles** | Arquitectura sin backend (zero-trust en red); datos nunca salen del navegador; disclaimer visible; evaluacion anonima por diseño |
+| **Razón** | El diseño debe considerar privacidad de datos de evaluación |
+| **Controles** | Arquitectura sin backend (zero-trust en red); datos nunca salen del navegador; disclaimer visible; evaluación anónima por diseño |
 | **Estado** | Mitigado |
 
 ---
@@ -61,8 +61,8 @@ CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub 
 | Aspecto | Detalle |
 |---------|---------|
 | **Relevancia** | Media |
-| **Razon** | Headers de seguridad y CSP deben estar correctamente configurados |
-| **Controles** | CSP via meta tags; X-Content-Type-Options: nosniff; X-Frame-Options: DENY; Referrer-Policy configurada; sin directorylistings (GitHub Pages) |
+| **Razón** | Headers de seguridad y CSP deben estar correctamente configurados |
+| **Controles** | CSP vía meta tags; X-Content-Type-Options: nosniff; X-Frame-Options: DENY; Referrer-Policy configurada; sin directory listings (GitHub Pages) |
 | **Estado** | Mitigado |
 
 ---
@@ -72,9 +72,9 @@ CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub 
 | Aspecto | Detalle |
 |---------|---------|
 | **Relevancia** | Alta |
-| **Razon** | Dependencias npm pueden contener vulnerabilidades |
-| **Controles** | `npm audit` regular; `package-lock.json` versionado; actualizacion proactiva de dependencias; sin dependencias abandonadas |
-| **Riesgo residual** | Dependencias con vulnerabilidades no-criticas pueden existir temporalmente |
+| **Razón** | Dependencias npm pueden contener vulnerabilidades |
+| **Controles** | `npm audit` regular; `package-lock.json` versionado; actualización proactiva de dependencias; sin dependencias abandonadas |
+| **Riesgo residual** | Dependencias con vulnerabilidades no-críticas pueden existir temporalmente |
 | **Estado** | Mitigado (monitoreo continuo) |
 
 ---
@@ -84,7 +84,7 @@ CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub 
 | Aspecto | Detalle |
 |---------|---------|
 | **Relevancia** | N/A |
-| **Razon** | Sin sistema de autenticacion. Acceso anonimo por diseño. |
+| **Razón** | Sin sistema de autenticación. Acceso anónimo por diseño. |
 | **Estado** | N/A por arquitectura |
 
 ---
@@ -94,8 +94,8 @@ CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub 
 | Aspecto | Detalle |
 |---------|---------|
 | **Relevancia** | Media |
-| **Razon** | Integridad del codigo servido y datos importados |
-| **Controles** | Deploy via GitHub Actions (pipeline controlado); sin scripts de CDN externos; CSP restringe origenes; validacion de JSON en importacion |
+| **Razón** | Integridad del código servido y datos importados |
+| **Controles** | Deploy vía GitHub Actions (pipeline controlado); sin scripts de CDN externos; CSP restringe orígenes; validación de JSON en importación |
 | **Estado** | Mitigado |
 
 ---
@@ -105,9 +105,9 @@ CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub 
 | Aspecto | Detalle |
 |---------|---------|
 | **Relevancia** | Baja |
-| **Razon** | Sin servidor = sin logs centralizados. Aplicacion client-side no puede monitorear ataques |
-| **Controles** | GitHub Pages proporciona logs de acceso basicos; CSP report-uri podria agregarse en futuro |
-| **Estado** | Aceptado (limitacion de arquitectura) |
+| **Razón** | Sin servidor = sin logs centralizados. Aplicación client-side no puede monitorear ataques |
+| **Controles** | GitHub Pages proporciona logs de acceso básicos; CSP report-uri podría agregarse en futuro |
+| **Estado** | Aceptado (limitación de arquitectura) |
 
 ---
 
@@ -116,14 +116,14 @@ CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub 
 | Aspecto | Detalle |
 |---------|---------|
 | **Relevancia** | N/A |
-| **Razon** | Sin servidor. No se realizan requests server-side. |
+| **Razón** | Sin servidor. No se realizan requests server-side. |
 | **Estado** | N/A por arquitectura |
 
 ---
 
 ## Resumen de Cumplimiento
 
-| # | Categoria OWASP | Relevancia | Estado |
+| # | Categoría OWASP | Relevancia | Estado |
 |---|----------------|-----------|--------|
 | A01 | Broken Access Control | Baja | N/A por arquitectura |
 | A02 | Cryptographic Failures | Baja | N/A por arquitectura |
@@ -136,24 +136,24 @@ CyberCEN es una **Single Page Application (SPA) estatica** desplegada en GitHub 
 | A09 | Logging Failures | Baja | Aceptado |
 | A10 | SSRF | N/A | N/A por arquitectura |
 
-### Estadisticas
+### Estadísticas
 
 - **Mitigados:** 5/10 (A03, A04, A05, A06, A08)
-- **Aceptados:** 1/10 (A09 — limitacion inherente de SPA)
+- **Aceptados:** 1/10 (A09 — limitación inherente de SPA)
 - **N/A:** 4/10 (A01, A02, A07, A10 — sin backend)
-- **Categorias de riesgo activo:** 0
+- **Categorías de riesgo activo:** 0
 
 ---
 
 ## Recomendaciones Futuras
 
-| Mejora | Categoria OWASP | Prioridad |
+| Mejora | Categoría OWASP | Prioridad |
 |--------|----------------|-----------|
 | Agregar `report-uri` a CSP para monitoreo | A09 | Baja |
 | Implementar Subresource Integrity (SRI) si se agregan CDNs | A08 | Media |
-| Agregar `npm audit` automatico en CI/CD | A06 | Alta |
+| Agregar `npm audit` automático en CI/CD | A06 | Alta |
 | Considerar Web Crypto API para cifrar localStorage | A02 | Baja |
 
 ---
 
-*Ultima actualizacion: 2026-03-30 | CyberCEN v2.3 | Basado en OWASP Top 10:2021*
+*Última actualización: 2026-03-30 | CyberCEN v2.4 | Basado en OWASP Top 10:2021*
