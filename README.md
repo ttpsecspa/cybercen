@@ -2,7 +2,7 @@
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.2-black.svg)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6.svg)](https://www.typescriptlang.org)
 [![Deploy](https://img.shields.io/github/actions/workflow/status/ttpsecspa/cybercen/deploy.yml?label=deploy)](https://github.com/ttpsecspa/cybercen/actions)
-[![OWASP](https://img.shields.io/badge/OWASP-Compliant-green.svg)](docs/OWASP_MAPPING.md)
+[![OWASP 2025](https://img.shields.io/badge/OWASP_2025-Compliant-green.svg)](docs/OWASP_MAPPING.md)
 
 # CyberCEN
 
@@ -10,7 +10,7 @@
 
 | Stack | Licencia | Estado | Versión |
 |-------|----------|--------|---------|
-| Next.js 16 + React 19 + TypeScript 5 + Tailwind CSS 4 | MIT | Stable | v2.4 |
+| Next.js 16 + React 19 + TypeScript 5 + Tailwind CSS 4 | MIT | Stable | v2.5 |
 
 **Demo en vivo:** [ttpsecspa.github.io/cybercen](https://ttpsecspa.github.io/cybercen) — Haz clic en **"Ver Demo"** para explorar con datos ficticios precargados.
 
@@ -18,14 +18,14 @@
 
 ## Tabla de Contenidos
 
-- [Descripción](#descripción)
-- [Arquitectura](#arquitectura)
-- [Requisitos Previos](#requisitos-previos)
-- [Instalación](#instalación)
-- [Uso](#uso)
-- [Configuración](#configuración)
-- [Dominios CIP](#dominios-cip)
-- [Motor de Riesgo](#motor-de-riesgo)
+- [Descripción](#-descripción)
+- [Arquitectura](#-arquitectura)
+- [Requisitos Previos](#-requisitos-previos)
+- [Instalación](#-instalación)
+- [Uso](#-uso)
+- [Configuración](#-configuración)
+- [Dominios CIP](#-dominios-cip)
+- [Motor de Riesgo](#-motor-de-riesgo)
 - [Seguridad](#-seguridad)
 - [Testing](#-testing)
 - [Contribución](#-contribución)
@@ -35,7 +35,7 @@
 
 ---
 
-## Descripción
+## 📦 Descripción
 
 CyberCEN permite a las organizaciones del sector eléctrico chileno evaluar su nivel de cumplimiento del Estándar de Ciberseguridad del CEN, basado en NERC CIP (Critical Infrastructure Protection). Las 500+ empresas coordinadas por el CEN deben cumplir requisitos de ciberseguridad y entregar reportes anuales.
 
@@ -54,7 +54,7 @@ Esta herramienta ofrece un autodiagnóstico rápido, calcula el nivel de riesgo 
 
 ---
 
-## Arquitectura
+## 🏗️ Arquitectura
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -100,7 +100,7 @@ Esta herramienta ofrece un autodiagnóstico rápido, calcula el nivel de riesgo 
 
 ---
 
-## Requisitos Previos
+## 🔧 Requisitos Previos
 
 | Requisito | Versión Mínima |
 |-----------|---------------|
@@ -115,7 +115,7 @@ No requiere variables de entorno. La aplicación funciona completamente en el cl
 
 ---
 
-## Instalación
+## 🚀 Instalación
 
 ```bash
 # 1. Clonar el repositorio
@@ -148,7 +148,7 @@ El proyecto incluye un workflow de GitHub Actions (`.github/workflows/deploy.yml
 
 ---
 
-## Uso
+## 📖 Uso
 
 ### Inicio rápido
 
@@ -174,7 +174,7 @@ El botón **"Ver Demo"** precarga 120 respuestas con un patrón realista (~62% c
 
 ---
 
-## Configuración
+## ⚙️ Configuración
 
 ### next.config.ts
 
@@ -201,7 +201,7 @@ const nextConfig: NextConfig = {
 
 ---
 
-## Dominios CIP
+## 📋 Dominios CIP
 
 | # | CIP | Dominio | Peso |
 |---|-----|---------|------|
@@ -222,7 +222,7 @@ Cada dominio contiene 10 preguntas de evaluación adaptables según el tipo de e
 
 ---
 
-## Motor de Riesgo
+## 🧮 Motor de Riesgo
 
 ### Cálculo de score por dominio
 
@@ -251,7 +251,7 @@ Score_global = Σ (Score_dominio × Peso_dominio) / Σ Pesos
 
 ---
 
-## Seguridad
+## 🔒 Seguridad
 
 ### Modelo de amenazas
 
@@ -260,6 +260,7 @@ CyberCEN es una aplicación 100% client-side que **no transmite datos a servidor
 - Protección de datos de evaluación en el navegador (localStorage)
 - Prevención de inyección de contenido malicioso (CSP)
 - Integridad de la aplicación servida desde GitHub Pages
+- Cadena de suministro de dependencias npm
 
 ### Controles implementados
 
@@ -271,19 +272,44 @@ CyberCEN es una aplicación 100% client-side que **no transmite datos a servidor
 - **Sanitización de nombres de archivo** en exportación PDF
 - **Sin secretos ni credenciales** en el repositorio
 - **`.gitignore` reforzado** para excluir archivos sensibles
+- **`package-lock.json` versionado** para integridad de dependencias (SBOM implícito)
 
 ### Mapeo CWE/OWASP
 
-- [Mapeo CWE completo](docs/CWE_MAPPING.md)
-- [Mapeo OWASP Top 10:2021](docs/OWASP_MAPPING.md)
+| Documento | Versión | Link |
+|-----------|---------|------|
+| Mapeo CWE | 14 CWEs evaluados | [docs/CWE_MAPPING.md](docs/CWE_MAPPING.md) |
+| OWASP Top 10 | **2025** | [docs/OWASP_MAPPING.md](docs/OWASP_MAPPING.md) |
+
+> **Nota:** El OWASP Top 10 es un documento de awareness (mínimo basal). Para un estándar verificable y testeable, este proyecto referencia también [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/) como complemento.
+
+### SBOM (Software Bill of Materials)
+
+```bash
+# Generar SBOM en formato CycloneDX
+npx @cyclonedx/cyclonedx-npm --output-file sbom.json
+
+# Generar SBOM en formato SPDX
+npx @cyclonedx/cyclonedx-npm --output-file sbom.json --spec-version 1.5
+```
+
+El `package-lock.json` versionado actúa como SBOM implícito. Para auditorías formales, generar SBOM explícito con los comandos anteriores.
+
+### Hardening para deployment
+
+1. Verificar que GitHub Pages fuerce HTTPS
+2. Revisar CSP headers en `app/layout.tsx`
+3. Ejecutar `npm audit` antes de cada deploy
+4. Validar integridad del build con `npm run build`
+5. No servir archivos `.map` en producción
 
 ### Reporte de vulnerabilidades
 
-Consultar [SECURITY.md](SECURITY.md) para el proceso de reporte responsable.
+Consultar [SECURITY.md](SECURITY.md) para el proceso de reporte responsable (coordinated disclosure, 90 días).
 
 ---
 
-## Testing
+## 🧪 Testing
 
 ```bash
 # Lint
@@ -303,13 +329,13 @@ npm run build
 
 ---
 
-## Contribución
+## 🤝 Contribución
 
 Consultar [CONTRIBUTING.md](CONTRIBUTING.md) para guías de estilo, proceso de PRs y convenciones de commits.
 
 ---
 
-## Roadmap
+## 🗺️ Roadmap
 
 - [x] 12 dominios CIP con 120 preguntas
 - [x] Motor de riesgo ponderado
@@ -320,16 +346,18 @@ Consultar [CONTRIBUTING.md](CONTRIBUTING.md) para guías de estilo, proceso de P
 - [x] Landing page profesional con portada
 - [x] Deploy automático en GitHub Pages
 - [x] Hardening de seguridad (CSP, headers)
+- [x] Mapeo OWASP Top 10:2025 y CWE
 - [ ] Tests unitarios del motor de riesgo
 - [ ] Tests E2E con Playwright
 - [ ] PWA (Progressive Web App) para uso offline completo
 - [ ] Comparación entre evaluaciones (histórico)
 - [ ] Exportación a Excel/CSV
 - [ ] Internacionalización (i18n)
+- [ ] Generación automática de SBOM en CI/CD
 
 ---
 
-## Licencia
+## 📄 Licencia
 
 Este proyecto está licenciado bajo la [Licencia MIT](LICENSE).
 
@@ -339,9 +367,10 @@ MIT License - Copyright (c) 2026 TTPSEC SPA
 
 ---
 
-## Contacto
+## 📬 Contacto
 
 - **Organización:** [TTPSEC SPA](https://www.ttpsec.ai)
+- **Seguridad:** security@ttpsec.ai
 - **Repositorio:** [github.com/ttpsecspa/cybercen](https://github.com/ttpsecspa/cybercen)
 - **Sitio:** [ttpsecspa.github.io/cybercen](https://ttpsecspa.github.io/cybercen)
 
